@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import logo from './logo.png'; 
 import {
     Collapse,
     Navbar,
@@ -29,7 +30,8 @@ export default class HomeNavBar extends React.Component {
     render() {
         return (
             <div>
-                <Navbar color="light" light expand="md">
+                <Navbar color="light" light expand="md"> 
+                    <NavbarBrand tag={Link} to="/"><img src={logo} alt="" style={{width: 40, height: 40}}/></NavbarBrand>
                     <NavbarBrand tag={Link} to="/">ECE WaterMelon</NavbarBrand>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
@@ -38,7 +40,7 @@ export default class HomeNavBar extends React.Component {
                                 <NavLink tag={Link} to="/login">Sign in</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} to="/subscribe">Sign up</NavLink>
+                                <NavLink tag={Link} to="/register">Sign up</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
