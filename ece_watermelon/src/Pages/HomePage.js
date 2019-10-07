@@ -1,19 +1,21 @@
 import React from 'react';
-import HomeNavBar from './Components/HomeNavBar'
-import HomeCarousel from './Components/HomeCarousel';
-
+import HomeNavBar from './Components/Home/HomeNavBar'
+import HomeCarousel from './Components/Home/HomeCarousel';
+import Footer from './Components/Footer';
+import HomeContent from './Components/Home/HomeContent';
 
 const HomePage = () => (
-    
-    
-    <div>
-        <header><HomeNavBar/></header>
-        <div>
-            <HomeCarousel/>
-        </div>        
+
+
+    <div style={{ minHeight: '100%', position: 'relative' }}>
+        <header><HomeNavBar /></header>
+        <HomeCarousel />
+        <div style={{paddingBottom:'40px'}}>
+            <HomeContent />
+        </div>
+        <footer style={{ bottom: '0px', width: '100%', position: 'absolute', height:'40px'}}><Footer /> </footer>
     </div>
-    );
-    
-    
-    export default HomePage;
-    
+);
+
+
+export default HomePage;

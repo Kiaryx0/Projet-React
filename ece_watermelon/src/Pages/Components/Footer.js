@@ -1,0 +1,21 @@
+import React, { Component } from 'react';
+import { MDBContainer, MDBFooter} from 'mdbreact';
+
+export default class Footer extends Component {
+
+    render() {
+        return (
+            <MDBFooter >
+                <MDBContainer fluid className="tempting-azure-gradient text-center py-2" >
+                    <p className="dark-grey-text">Designed and Developped by
+                        <a href="https://www.facebook.com/K1ary" className="black-text font-weight-bold"> @Maxime Tran </a>
+                        and
+                        <a href="https://www.facebook.com/louis.deveze.9" className="black-text font-weight-bold"> @Louis Devèze </a>
+                        in {new Date().getFullYear()}
+                    </p>
+                </MDBContainer>
+            </MDBFooter>
+        );
+    }
+
+}
