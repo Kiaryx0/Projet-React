@@ -10,10 +10,10 @@ const HomePage = () => (
     <div style={{ minHeight: '100%', position: 'relative' }}>
         <header><HomeNavBar /></header>
         <HomeCarousel />
-        <div style={{paddingBottom:'40px'}}>
+        <div style={{paddingBottom:'70px'}}>
             <HomeContent />
         </div>
-        <footer style={{ bottom: '0px', width: '100%', position: 'absolute', height:'40px'}}><Footer /> </footer>
+        <footer style={{ bottom: '0px', width: '100%', position: 'absolute', height:'50px'}}><Footer /> </footer>
     </div>
 );
 
