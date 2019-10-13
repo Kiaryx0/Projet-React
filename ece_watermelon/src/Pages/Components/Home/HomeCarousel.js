@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer, MDBMask, MDBCarouselCaption } from
-    "mdbreact";
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer, MDBMask, MDBCarouselCaption } from "mdbreact";
 
 import slide1 from './CarrouselSlide/slide1.jpg';
 import slide2 from './CarrouselSlide/slide2.jpg';
@@ -12,7 +11,7 @@ class HomeCarousel extends Component {
         return (
             
             <MDBContainer style={{ maxWidth: '100%' }} className="px-0">
-                <MDBCarousel activeItem={1} length={3} showControls={true} showIndicators={true} className="z-depth-1" slide>
+                <MDBCarousel activeItem={1} length={3} showControls={false} showIndicators={false} className="z-depth-1" slide>
                     <MDBCarouselInner>
                         <MDBCarouselItem itemId="1">
                             <MDBView>

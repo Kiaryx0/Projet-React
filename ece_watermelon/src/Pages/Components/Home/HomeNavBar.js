@@ -22,19 +22,19 @@ class HomeNavBar extends Component {
         return (
             <MDBNavbar className="tempting-azure-gradient" dark expand="md">
                 <MDBNavbarBrand >
-                    <img src={logo} alt="" style={{ width: 40, height: 40 }} />
+                    <img src={logo} alt="" style={{ width: 60, height: 60 }} />
                 </MDBNavbarBrand>
                 <MDBNavbarBrand tag={Link} to="/">
-                    <strong className="black-text">ECE WaterMelon</strong>
+                    <strong className="black-text" style={{fontSize:'30px'}}>ECE WaterMelon</strong>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                     <MDBNavbarNav right>
                         <MDBNavItem>
-                            <MDBNavLink to="/login" className="black-text">Login</MDBNavLink>
+                            <MDBNavLink to="/login" className="black-text" style={{fontSize:'25px'}}>Login</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="/register" className="black-text">Register</MDBNavLink>
+                            <MDBNavLink to="/register" className="black-text" style={{fontSize:'25px'}}>Register</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>

@@ -9,7 +9,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter >
         <App/>
     </BrowserRouter>,
     document.getElementById("root")
