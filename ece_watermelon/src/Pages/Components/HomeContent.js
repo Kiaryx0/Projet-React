@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MDBRow, MDBCol } from "mdbreact";
+import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import wallet from './Pictures/wallet.png';
 import account from './Pictures/account.png';
 import money from './Pictures/money.png';
@@ -23,8 +23,10 @@ export default class HomeContent extends Component {
                         <p className="grey-text text-justify" style={{marginLeft:"50px", marginRight:"50px", paddingBottom:"20px"}}>
                             Customize your wallet. Add new cards to pay with. Proceed to transactions between other users and your bank from this menu.
                         </p>
-                        <Link to="/login" style={{ paddingBottom:"50px"}}>
-                            <button type="button"  class="btn btn-outline-default btn-lg waves-effect">Check Wallet</button>
+                        <Link to="/wallet" style={{ paddingBottom:"50px"}}>
+                            <MDBBtn outline color="default" size="lg" >
+                                Check Wallet
+                            </MDBBtn>
                         </Link>
                         
                     </MDBCol>
@@ -35,7 +37,9 @@ export default class HomeContent extends Component {
                             Complete your profile to be able to send and receive Money from your friends who already use WaterMelon. A well documented profile is a must!
                         </p>
                         <Link to="/login" style={{ paddingBottom:"50px"}}>
-                            <button type="button"  class="btn btn-outline-default btn-lg waves-effect">See Profile</button>
+                            <MDBBtn outline color="default" size="lg" >
+                                See Profile
+                            </MDBBtn>
                         </Link>
                     </MDBCol>
                     <MDBCol md="4" style={{paddingBottom:'50px'}}>
@@ -45,8 +49,9 @@ export default class HomeContent extends Component {
                             Send money to your friends or ask them to pay you using our App ! Transfer money from your wallet to your bank account or vice versa
                         </p>
                         <Link to="/login" style={{ paddingBottom:"50px"}}>
-                            <button type="button"  class="btn btn-outline-default btn-lg waves-effect" >Transfer Money</button>
-                        </Link>
+                            <MDBBtn outline color="default" size="lg" >
+                                Transfer Money
+                            </MDBBtn></Link>
                     </MDBCol>
                 </MDBRow>
             </section>

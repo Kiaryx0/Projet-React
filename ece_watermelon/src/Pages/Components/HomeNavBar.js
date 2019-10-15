@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom'
-import logo from './Pictures/logo.png'
+import logo from './Pictures/logo.png';
 import {
     MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse
 } from "mdbreact";
@@ -20,21 +19,25 @@ class HomeNavBar extends Component {
     render() {
 
         return (
-            <MDBNavbar className="tempting-azure-gradient" dark expand="md">
+            <MDBNavbar className="tempting-azure-gradient" dark expand="md" style={{width:'100vw'}}>
+                
+                <MDBNavLink to="/">
                 <MDBNavbarBrand >
-                    <img src={logo} alt="" style={{ width: 60, height: 60 }} />
+                    <img src={logo} alt="" style={{ width: '50px', height: '50px' }} />
                 </MDBNavbarBrand>
-                <MDBNavbarBrand tag={Link} to="/">
-                    <strong className="black-text" style={{fontSize:'30px'}}>ECE WaterMelon</strong>
-                </MDBNavbarBrand>
+                    <MDBNavbarBrand>
+                        <strong className="black-text" style={{fontSize:'25px'}}>ECE WaterMelon</strong>
+                    </MDBNavbarBrand>
+                </MDBNavLink>
+                
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-                    <MDBNavbarNav right>
+                    <MDBNavbarNav right style={{marginRight:'20px'}}>
                         <MDBNavItem>
-                            <MDBNavLink to="/login" className="black-text" style={{fontSize:'25px'}}>Login</MDBNavLink>
+                            <MDBNavLink to="/login" className="black-text" style={{fontSize:'20px'}}>Login</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="/register" className="black-text" style={{fontSize:'25px'}}>Register</MDBNavLink>
+                            <MDBNavLink to="/register" className="black-text" style={{fontSize:'20px'}}>Register</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>
