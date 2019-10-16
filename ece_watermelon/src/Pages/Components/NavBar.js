@@ -4,16 +4,19 @@ import {
     MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse
 } from "mdbreact";
 
-class HomeNavBar extends Component {
+class NavBar extends Component {
 
     constructor(props) {
         super(props);
         this.state = { isOpen: false };
-        this.toggleOr = this.bind
     }
 
     toggleCollapse = () => {
         this.setState({ isOpen: !this.state.isOpen });
+    }
+
+    content(){
+        
     }
 
     render() {
@@ -46,4 +49,4 @@ class HomeNavBar extends Component {
     }
 }
 
-export default HomeNavBar;
+export default NavBar;
