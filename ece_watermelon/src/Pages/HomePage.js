@@ -1,12 +1,12 @@
 import React from 'react';
-import HomeNavBar from './Components/HomeNavBar'
+import NavBar from './Components/NavBar'
 import HomeCarousel from './Components/HomeCarousel';
-import Footer from './Components/Footer';
 import HomeContent from './Components/HomeContent';
+import Footer from './Components/Footer';
 
 const HomePage = () => (
-    <div style={{ minHeight: '100vh', position: 'relative' }}>
-        <header><HomeNavBar /></header>
+    <div>
+        <header><NavBar /></header>
         <HomeCarousel />
         <HomeContent />
         <Footer/>

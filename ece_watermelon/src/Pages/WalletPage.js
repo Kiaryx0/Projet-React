@@ -1,13 +1,13 @@
 import React from 'react';
 import Footer from './Components/Footer';
-import HomeNavBar from './Components/HomeNavBar';
+import NavBar from './Components/NavBar';
 import WalletContent from './Components/WalletContent';
 
 const WalletPage = () => (
 
 
-    <div style={{ minHeight: '100vh', position: 'relative' }}>
-        <header><HomeNavBar /></header>
+    <div>
+        <header><NavBar /></header>
         <WalletContent/>
         <Footer/>
     </div>

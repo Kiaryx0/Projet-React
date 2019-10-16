@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBContainer } from "mdbreact";
+import { MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody,
+     MDBCardTitle, MDBCardText, MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from "mdbreact";
 import wallet from './Pictures/wallet.png';
 import deposit from './Pictures/deposit.png';
 import payment from './Pictures/payment.png';
@@ -9,6 +10,19 @@ import { Link } from 'react-router-dom';
 
 export default class WalletContent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalDeposit: false
+        };
+        this.toggleBankDeposit = this.toggleBankDeposit.bind(this);
+    }
+
+    toggleBankDeposit() {
+        this.setState({
+            modalDeposit: !this.state.modalDeposit
+        });
+    }
 
     render() {
         return (
@@ -20,6 +34,7 @@ export default class WalletContent extends Component {
                     <MDBCol md="5" style={{ paddingLeft: '40px', paddingRight: '40px', paddingBottom: '100px', width: '100%' }}>
                         <MDBCard className="text-center">
                             <MDBCardBody>
+
                                 <MDBCardTitle style={{ fontSize: '36px' }}>Wallet Activity</MDBCardTitle>
                                 <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
                                     Keep Track here of the last activities on your wallet. this includes payments to other users of WaterMelon, and Transfers From or To your Bank account.
@@ -80,7 +95,7 @@ export default class WalletContent extends Component {
                                     </MDBListGroupItem>
 
                                 </MDBListGroup>
-                                <MDBBtn outline color="dark" size="lg" style={{marginTop:'30px'}}>
+                                <MDBBtn outline color="dark" size="lg" style={{ marginTop: '30px' }}>
                                     Show Older Activity
                                 </MDBBtn>
 
@@ -102,50 +117,58 @@ export default class WalletContent extends Component {
                                 <h1 style={{ fontSize: '60px' }}>126.90€</h1>
                             </MDBCol>
                         </MDBRow>
-                        <MDBRow middle style={{paddingTop:'50px'}}>
+                        <MDBRow middle style={{ paddingTop: '50px' }}>
                             <MDBCol md="4" className="text-center">
-                                <img src={deposit} alt="" style={{ width: '100%', maxWidth:'120px'}}></img>
+                                <img src={deposit} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
                             </MDBCol>
                             <MDBCol md="8" className="text-center" middle>
-                                <Link className="text-center">
-                                <MDBBtn outline color="dark" size="lg" style={{width:'100%', fontSize:'20px'}}>
+                                <MDBBtn outline color="dark" size="lg" onClick={() => this.toggleBankDeposit()} style={{ width: '100%', fontSize: '20px' }}>
                                     Make a Bank Deposit
                                 </MDBBtn>
-                                </Link>
+                                <MDBModal isOpen={this.state.modalDeposit} toggle={() => this.toggleBankDeposit()} centered>
+                                    <MDBModalHeader toggle={() => this.toggleBankDeposit()}>Make a Bank Deposit</MDBModalHeader>
+                                    <MDBModalBody>
+                                        Using this card
+                                    </MDBModalBody>
+                                    <MDBModalFooter>
+                                        <MDBBtn color="warning" onClick={() => this.toggleBankDeposit()}>Cancel</MDBBtn>
+                                        <MDBBtn color="default">Proceed</MDBBtn>
+                                    </MDBModalFooter>
+                                </MDBModal>
                             </MDBCol>
                         </MDBRow>
-                        <MDBRow middle style={{paddingTop:'20px'}}>
+                        <MDBRow middle style={{ paddingTop: '20px' }}>
                             <MDBCol md="4" className="text-center">
-                                <img src={withdrawal} alt="" style={{ width: '100%', maxWidth:'120px'}}></img>
+                                <img src={withdrawal} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
                             </MDBCol>
                             <MDBCol md="8" className="text-center" middle>
                                 <Link className="text-center">
-                                <MDBBtn outline color="dark" size="lg" style={{width:'100%', fontSize:'20px'}}>
-                                    Make a Bank Withdrawal
+                                    <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
+                                        Make a Bank Withdrawal
                                 </MDBBtn>
                                 </Link>
                             </MDBCol>
                         </MDBRow>
-                        <MDBRow middle style={{paddingTop:'20px'}}>
+                        <MDBRow middle style={{ paddingTop: '20px' }}>
                             <MDBCol md="4" className="text-center">
-                                <img src={payment} alt="" style={{ width: '100%', maxWidth:'120px'}}></img>
+                                <img src={payment} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
                             </MDBCol>
                             <MDBCol md="8" className="text-center" middle>
                                 <Link className="text-center">
-                                <MDBBtn outline color="dark" size="lg" style={{width:'100%', fontSize:'20px'}}>
-                                    Make a Payment 
+                                    <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
+                                        Make a Payment
                                 </MDBBtn>
                                 </Link>
                             </MDBCol>
                         </MDBRow>
-                        <MDBRow middle style={{paddingTop:'20px'}}>
+                        <MDBRow middle style={{ paddingTop: '20px' }}>
                             <MDBCol md="4" className="text-center">
-                                <img src={card} alt="" style={{ width: '100%', maxWidth:'120px'}}></img>
+                                <img src={card} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
                             </MDBCol>
                             <MDBCol md="8" className="text-center" middle>
                                 <Link className="text-center">
-                                <MDBBtn outline color="dark" size="lg" style={{width:'100%', fontSize:'20px'}}>
-                                    Manage Cards
+                                    <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
+                                        Manage Cards
                                 </MDBBtn>
                                 </Link>
                             </MDBCol>
