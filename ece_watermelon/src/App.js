@@ -4,6 +4,9 @@ import HomePage from './Pages/HomePage';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import WalletPage from './Pages/WalletPage';
+import BankPage from './Pages/BankPage';
+import AccountPage from './Pages/AccountPage';
+import TransferPage from './Pages/TransferPage';
 
 
 const App = () => (
@@ -12,6 +15,9 @@ const App = () => (
         <Route path="/login" exact component={LoginPage}/>
         <Route path="/register" exact component={RegisterPage}/>
         <Route path="/wallet" exact component={WalletPage}/>
+        <Route path="/bank" exact component={BankPage}/>
+        <Route path="/account" exact component={AccountPage}/>
+        <Route path="/transfer" exact component={TransferPage}/>
     </div>
 );
         
