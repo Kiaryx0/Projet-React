@@ -1,15 +1,14 @@
-import React, { Component } from "./node_modules/react";
+import React, { Component } from "react";
 import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
     MDBCardTitle, MDBCardText, MDBContainer, MDBInput
-} from "./node_modules/mdbreact";
-import { Link } from './node_modules/react-router-dom'
-import cb from './Pictures/cb.png';
-import visa from './Pictures/visa.png';
-import mastercard from './Pictures/mastercard.png';
-import wallet from './Pictures/wallet.png';
+} from "mdbreact";
+import { Link } from 'react-router-dom'
+import cb from '../Pictures/cb.png';
+import visa from '../Pictures/visa.png';
+import mastercard from '../Pictures/mastercard.png';
+import wallet from '../Pictures/wallet.png';
 import './style.css'
-import ImportUsers from '../../Database/DatabaseAcces'
 
 export default class WalletContent extends Component {
 

@@ -1,9 +1,9 @@
-import React, { Component } from "./node_modules/react";
-import { MDBRow, MDBCol, MDBBtn } from "./node_modules/mdbreact";
-import wallet from './Pictures/wallet.png';
-import account from './Pictures/account.png';
-import money from './Pictures/money.png';
-import {Link} from './node_modules/react-router-dom';
+import React, { Component } from "react";
+import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import wallet from '../Pictures/wallet.png';
+import account from '../Pictures/account.png';
+import money from '../Pictures/money.png';
+import {Link} from 'react-router-dom';
 
 export default class HomeContent extends Component {
 

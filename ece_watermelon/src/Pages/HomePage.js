@@ -1,8 +1,8 @@
 import React from 'react';
-import NavBar from './Components/NavBar'
-import HomeCarousel from './Components/HomeCarousel';
-import HomeContent from './Components/HomeContent';
-import Footer from './Components/Footer';
+import NavBar from '../Components/NavBar'
+import HomeCarousel from '../Components/HomeCarousel';
+import HomeContent from '../Components/HomeContent';
+import Footer from '../Components/Footer';
 
 const HomePage = () => (
     <div>

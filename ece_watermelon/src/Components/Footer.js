@@ -1,5 +1,5 @@
-import React, { Component } from './node_modules/react';
-import { MDBContainer, MDBFooter } from './node_modules/mdbreact';
+import React, { Component } from 'react';
+import { MDBContainer, MDBFooter } from 'mdbreact';
 
 export default class Footer extends Component {
     

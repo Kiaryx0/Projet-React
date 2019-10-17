@@ -1,11 +1,11 @@
-import React, { Component } from "./node_modules/react";
+import React, { Component } from "react";
 import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
     MDBCardTitle, MDBContainer
-} from "./node_modules/mdbreact";
-import cb from './Pictures/cb.png';
-import visa from './Pictures/visa.png';
-import mastercard from './Pictures/mastercard.png';
+} from "mdbreact";
+import cb from '../Pictures/cb.png';
+import visa from '../Pictures/visa.png';
+import mastercard from '../Pictures/mastercard.png';
 import './style.css'
 
 export default class AccountContent extends Component {

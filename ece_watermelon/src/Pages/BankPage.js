@@ -1,7 +1,7 @@
 import React from 'react';
-import NavBar from './Components/NavBar'
-import BankContent from './Components/BankContent'
-import Footer from './Components/Footer';
+import NavBar from '../Components/NavBar'
+import BankContent from '../Components/BankContent'
+import Footer from '../Components/Footer';
 
 
 const BankPage = () => (

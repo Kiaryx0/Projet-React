@@ -1,8 +1,8 @@
-import React, { Component } from "./node_modules/react";
-import logo from './Pictures/logo.png';
+import React, { Component } from "react";
+import logo from '../Pictures/logo.png';
 import {
     MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse
-} from "./node_modules/mdbreact";
+} from "mdbreact";
 
 class NavBar extends Component {
 

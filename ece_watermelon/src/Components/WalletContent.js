@@ -1,12 +1,12 @@
-import React, { Component } from "./node_modules/react";
+import React, { Component } from "react";
 import { MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody,
-     MDBCardTitle, MDBCardText, MDBContainer } from "./node_modules/mdbreact";
-import wallet from './Pictures/wallet.png';
-import deposit from './Pictures/deposit.png';
-import payment from './Pictures/payment.png';
-import withdrawal from './Pictures/withdrawal.png';
-import card from './Pictures/card.png';
-import { Link } from './node_modules/react-router-dom';
+     MDBCardTitle, MDBCardText, MDBContainer } from "mdbreact";
+import wallet from '../Pictures/wallet.png';
+import deposit from '../Pictures/deposit.png';
+import payment from '../Pictures/payment.png';
+import withdrawal from '../Pictures/withdrawal.png';
+import card from '../Pictures/card.png';
+import { Link } from 'react-router-dom';
 
 
 export default class WalletContent extends Component {
