@@ -1,0 +1,10 @@
+.background{
+    background-image: url("backgroundlogin.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.md-form label{
+    color: whitesmoke !important;
+}
+
