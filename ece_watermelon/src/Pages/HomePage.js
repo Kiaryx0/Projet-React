@@ -1,19 +1,16 @@
 import React from 'react';
-import HomeNavBar from './Components/HomeNavBar'
-import HomeCarousel from './Components/HomeCarousel';
-
+import NavBar from '../Components/NavBar'
+import HomeCarousel from '../Components/HomeCarousel';
+import HomeContent from '../Components/HomeContent';
+import Footer from '../Components/Footer';
 
 const HomePage = () => (
-    
-    
     <div>
-        <header><HomeNavBar/></header>
-        <div>
-            <HomeCarousel/>
-        </div>        
+        <header><NavBar /></header>
+        <HomeCarousel />
+        <HomeContent />
+        <Footer/>
     </div>
-    );
-    
-    
-    export default HomePage;
-    
+);
+
+export default HomePage;
