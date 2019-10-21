@@ -48,7 +48,7 @@ class NavBar extends Component {
                         <MDBNavLink to="/wallet" className="black-text" style={{ fontSize: '20px', fontWeight:"400"}}>Wallet</MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                        <MDBNavLink to="/" onClick={logoutUser()}>
+                        <MDBNavLink to="/" onClick={() => logoutUser()}>
                             <MDBIcon className="nav-link black-text" icon="power-off" size="lg"/>
                         </MDBNavLink>
                     </MDBNavItem>
