@@ -7,6 +7,8 @@ import payment from '../Pictures/payment.png';
 import withdrawal from '../Pictures/withdrawal.png';
 import card from '../Pictures/card.png';
 import { Link } from 'react-router-dom';
+import { getWalletAmount } from "../Database/DatabaseWallet";
+
 
 
 export default class WalletContent extends Component {
@@ -89,7 +91,7 @@ export default class WalletContent extends Component {
                             </MDBCol>
                             <MDBCol md="6" middle className="text-center">
                                 <h1 style={{ fontWeight: 'bold', fontSize: '50px', whiteSpace: 'nowrap' }}>Cash flow</h1>
-                                <h1 style={{ fontSize: '60px' }}>126.90€</h1>
+                                <h1 style={{ fontSize: '60px' }}>{getWalletAmount()}€</h1>
                             </MDBCol>
                         </MDBRow>
                         <MDBRow middle style={{ paddingTop: '50px' }}>
