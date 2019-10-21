@@ -8,15 +8,21 @@ import WalletPage from './Pages/WalletPage';
 import BankPage from './Pages/BankPage';
 import AccountPage from './Pages/AccountPage';
 import TransferPage from './Pages/TransferPage';
-import ImportUsers from './Database/DatabaseAcces';
+import importUsers from './Database/DatabaseImport'
+import loginUser from './Database/DatabaseSession';
 
 
 class App extends Component{
 
     constructor(props){
         super(props);
-        ImportUsers();
+        importUsers();
+        loginUser("louis.deveze@edu.ece.fr", "framboise");
     }
+
+    componentDidMount(){
+        document.title = "ECE Watermelon"
+      }
 
     render(){
         return (
