@@ -9,6 +9,7 @@ import visa from '../Pictures/visa.png';
 import mastercard from '../Pictures/mastercard.png';
 import wallet from '../Pictures/wallet.png';
 import './style.css'
+import { getWalletAmount } from "../Database/DatabaseWallet";
 
 export default class WalletContent extends Component {
 
@@ -103,7 +104,7 @@ export default class WalletContent extends Component {
                             </MDBCol>
                             <MDBCol md="6" middle className="text-center">
                                 <h1 style={{ fontWeight: 'bold', fontSize: '50px', whiteSpace: 'nowrap' }}>Cash flow</h1>
-                                <h1 style={{ fontSize: '60px' }}>126.90€</h1>
+                                <h1 style={{ fontSize: '60px' }}>{getWalletAmount()}</h1>
                             </MDBCol>
                         </MDBRow>
                         <MDBRow middle style={{ paddingTop: '50px' }}>

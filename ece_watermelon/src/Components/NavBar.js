@@ -13,12 +13,19 @@ class NavBar extends Component {
         this.content = this.content.bind(this);
     }
 
+    /**
+     * Toggle the hamburger when necessary
+     */
     toggleCollapse = () => {
         this.setState({ isOpen: !this.state.isOpen });
     }
 
+    /**
+     * This function generates the navbar items in function of the user connected
+     * If no user is connected yet, the function returns a login / register component
+     */
     content() {
-
+        // Get the logged User
         var user = getSessionUser();
 
         // If the user isn't connected, show login / register navbar
@@ -39,8 +46,9 @@ class NavBar extends Component {
             return (
                 <MDBNavbarNav right style={{ marginRight: '20px' }}>
                     <MDBNavItem>
-                        <p className="dark-grey-text nav-link Ripple-parent" style={{ fontSize: '20px', paddingRight:'10px'}}>Welcome {user.first_name} !</p>
+                        <p className="dark-grey-text nav-link Ripple-parent" style={{ fontSize: '20px'}}>Welcome {user.first_name} !</p>
                     </MDBNavItem>
+                    
                     <MDBNavItem>
                         <MDBNavLink to="/account" className="black-text" style={{ fontSize: '20px', fontWeight:"400"}}>Account</MDBNavLink>
                     </MDBNavItem>
@@ -57,6 +65,9 @@ class NavBar extends Component {
         }
     }
 
+    /**
+     * Render method of the NavBar class
+     */
     render() {
 
         return (
@@ -73,7 +84,6 @@ class NavBar extends Component {
 
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-
                     {this.content()}
                 </MDBCollapse>
             </MDBNavbar>
