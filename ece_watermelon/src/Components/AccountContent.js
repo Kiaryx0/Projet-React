@@ -5,13 +5,14 @@ import {
 } from "mdbreact";
 import './style.css'
 import getSessionCards, { getCardPictureSrc } from "../Database/DatabaseCard";
+import CardAdder from "./Utils/CardAdder";
 
 export default class AccountContent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
+            modalAddCard: false,
             cardSelected: null,
             cards: getSessionCards()
         };
@@ -20,6 +21,25 @@ export default class AccountContent extends Component {
         this.setSelectedCard = this.setSelectedCard.bind(this);
         this.cardList = this.cardList.bind(this);
 
+    }
+
+    /**
+     * Used to set Adding Card modal state to active
+     */
+    showAddingCard() {
+        this.setState({
+            modalAddCard: true
+        });
+    }
+
+    /**
+     * Used to set Adding Card modal state to active
+     */
+    closeAddingCard() {
+        this.setState({
+            modalAddCard: false,
+            cards: getSessionCards()
+        });
     }
 
     /**
@@ -71,6 +91,7 @@ export default class AccountContent extends Component {
         return (
 
             <div>
+                <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() =>this.closeAddingCard()}/> 
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Account Manager</h1>
                 </MDBContainer>
@@ -93,7 +114,7 @@ export default class AccountContent extends Component {
                                 <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                     <MDBRow middle>
                                         <MDBCol md="6">
-                                            <MDBBtn outline color="success" size="lg" style={{ marginTop: '30px' }}>Add Card</MDBBtn>
+                                            <MDBBtn outline color="success" size="lg" style={{ marginTop: '30px' }} onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
                                         </MDBCol>
                                         <MDBCol md="6">
                                             <MDBBtn outline color="danger" size="lg" style={{ marginTop: '30px' }}>Delete Card</MDBBtn>

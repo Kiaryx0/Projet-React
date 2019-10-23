@@ -3,34 +3,42 @@ import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
     MDBCardTitle, MDBCardText, MDBContainer, MDBInput
 } from "mdbreact";
-import { Link } from 'react-router-dom'
 import wallet from '../Pictures/wallet.png';
 import './style.css'
 import { getWalletAmount } from "../Database/DatabaseWallet";
 import getSessionCards, { getCardPictureSrc } from "../Database/DatabaseCard";
+import CardAdder from "./Utils/CardAdder"
 
 export default class WalletContent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
+            modalAddCard: false,
             cardSelected: null,
             cards: getSessionCards()
         };
-        this.toggle = this.toggle.bind(this);
         this.isActive = this.isActive.bind(this);
         this.setSelectedCard = this.setSelectedCard.bind(this);
         this.cardList = this.cardList.bind(this);
-
     }
 
     /**
-     * Used to toggle modal state and activate it when a deposit / withdrawal has to be done
+     * Used to set Adding Card modal state to active
      */
-    toggle() {
+    showAddingCard() {
         this.setState({
-            modal: !this.state.modal
+            modalAddCard: true
+        });
+    }
+
+    /**
+     * Used to set Adding Card modal state to active
+     */
+    closeAddingCard() {
+        this.setState({
+            modalAddCard: false,
+            cards: getSessionCards()
         });
     }
 
@@ -61,7 +69,7 @@ export default class WalletContent extends Component {
      */
     cardList() {
         return this.state.cards.map((card) =>
-            <MDBListGroupItem key={card.id}  className={this.isActive(card.id)} onClick={() => this.setSelectedCard(card.id)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
+            <MDBListGroupItem key={card.id} className={this.isActive(card.id)} onClick={() => this.setSelectedCard(card.id)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
                 <div className="justify-content-between">
                     <img src={getCardPictureSrc(card)} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline' }}></img>
                     <h5 className="mb-1" style={{ display: 'inline', marginLeft: '20px' }}>Card : ****-****-****-{card.last_4}</h5>
@@ -73,6 +81,9 @@ export default class WalletContent extends Component {
     render() {
         return (
             <div>
+
+                <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() =>this.closeAddingCard()}/> 
+
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Bank Manager</h1>
                 </MDBContainer>
@@ -94,12 +105,10 @@ export default class WalletContent extends Component {
                                 </MDBListGroup>
 
                                 <MDBCardFooter style={{ backgroundColor: "inherit" }}>
-                                    <Link to="/account">
-                                        <MDBBtn outline color="dark" size="lg" style={{ marginTop: '30px' }}>Add New Card</MDBBtn>
-                                    </Link>
+                                    
+                                        <MDBBtn outline color="dark" size="lg" onClick={()=>this.showAddingCard()} style={{ marginTop: '30px' }}>Add New Card</MDBBtn>
+                                    
                                 </MDBCardFooter>
-
-
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
