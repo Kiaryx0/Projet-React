@@ -20,8 +20,8 @@ export const wallets = [
 
 export const cards = [
     {   id: 1, last_4: 1234, brand: "master_card", expired_at: "2019-12-01", user_id: 1},
-    {   id: 2, last_4: 8904, brand: "jcb", expired_at: "2020-04-01", user_id: 1},
-    {   id: 3, last_4: 5924, brand: "visa", expired_at: "2019-11-01", user_id: 1},
+    {   id: 2, last_4: 8904, brand: "visa", expired_at: "2020-04-01", user_id: 1},
+    {   id: 3, last_4: 5924, brand: "american_express", expired_at: "2019-11-01", user_id: 1},
     {   id: 4, last_4: 1237, brand: "master_card", expired_at: "2020-02-01", user_id: 2},
     {   id: 5, last_4: 6578, brand: "american_express", expired_at: "2021-12-01", user_id: 3},
     {   id: 6, last_4: 3278, brand: "jcb", expired_at: "2021-12-01", user_id: 3},
@@ -29,6 +29,7 @@ export const cards = [
     {   id: 8, last_4: 3679, brand: "jcb", expired_at: "2020-09-01", user_id: 5},
     {   id: 9, last_4: 1235, brand: "master_card", expired_at: "2021-04-01", user_id: 5},
     {   id: 10, last_4: 3215, brand: "union_pay", expired_at: "2020-05-01", user_id: 5},
+    {   id: 11, last_4: 9284, brand: "union_pay", expired_at: "2019-11-01", user_id: 1},
 ]
 
 export const payins = [

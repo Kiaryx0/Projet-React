@@ -9,6 +9,7 @@ const RegisterPage = () => (
         <header><HomeNavBar/></header>
         <div><RegisterForm/></div>
         <Footer/>
+
     </div>
 );
 

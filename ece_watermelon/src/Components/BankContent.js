@@ -3,33 +3,49 @@ import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
     MDBCardTitle, MDBCardText, MDBContainer, MDBInput
 } from "mdbreact";
-import { Link } from 'react-router-dom'
-import cb from '../Pictures/cb.png';
-import visa from '../Pictures/visa.png';
-import mastercard from '../Pictures/mastercard.png';
 import wallet from '../Pictures/wallet.png';
 import './style.css'
 import { getWalletAmount } from "../Database/DatabaseWallet";
+import getSessionCards, { getCardPictureSrc } from "../Database/DatabaseCard";
+import CardAdder from "./Utils/CardAdder"
 
 export default class WalletContent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
-            cardSelected: 0
+            modalAddCard: false,
+            cardSelected: null,
+            cards: getSessionCards()
         };
-        this.toggle = this.toggle.bind(this);
         this.isActive = this.isActive.bind(this);
         this.setSelectedCard = this.setSelectedCard.bind(this);
+        this.cardList = this.cardList.bind(this);
     }
 
-    toggle() {
+    /**
+     * Used to set Adding Card modal state to active
+     */
+    showAddingCard() {
         this.setState({
-            modal: !this.state.modal
+            modalAddCard: true
         });
     }
 
+    /**
+     * Used to set Adding Card modal state to active
+     */
+    closeAddingCard() {
+        this.setState({
+            modalAddCard: false,
+            cards: getSessionCards()
+        });
+    }
+
+    /**
+     * Return active css props if the card id item used in render is the one of the state
+     * @param {*card id of the list item} cardID 
+     */
     isActive(cardID) {
         if (cardID === this.state.cardSelected) {
             return 'active';
@@ -38,15 +54,36 @@ export default class WalletContent extends Component {
         }
     }
 
+    /**
+     * Set Active css ID
+     * @param {active card id} cardID 
+     */
     setSelectedCard(cardID) {
         this.setState({
             cardSelected: cardID
         });
     }
 
+    /**
+     * Display the card list of the current user
+     */
+    cardList() {
+        return this.state.cards.map((card) =>
+            <MDBListGroupItem key={card.id} className={this.isActive(card.id)} onClick={() => this.setSelectedCard(card.id)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
+                <div className="justify-content-between">
+                    <img src={getCardPictureSrc(card)} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline' }}></img>
+                    <h5 className="mb-1" style={{ display: 'inline', marginLeft: '20px' }}>Card : ****-****-****-{card.last_4}</h5>
+                </div>
+            </MDBListGroupItem>
+        )
+    }
+
     render() {
         return (
             <div>
+
+                <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() =>this.closeAddingCard()}/> 
+
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Bank Manager</h1>
                 </MDBContainer>
@@ -56,7 +93,7 @@ export default class WalletContent extends Component {
                         <MDBCard className="text-center" >
                             <MDBCardBody>
 
-                                <MDBCardHeader style={{backgroundColor:"inherit"}}>
+                                <MDBCardHeader style={{ backgroundColor: "inherit" }}>
                                     <MDBCardTitle style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
                                 </MDBCardHeader>
                                 <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
@@ -64,38 +101,19 @@ export default class WalletContent extends Component {
                                 </MDBCardText>
 
                                 <MDBListGroup >
-                                    <MDBListGroupItem className={this.isActive(1)} onClick={() => this.setSelectedCard(1)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
-                                        <div className="justify-content-between">
-                                            <img src={cb} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline' }}></img>
-                                            <h5 className="mb-1" style={{ display: 'inline', marginLeft: '20px' }}>Card : 1234-****-****-1234</h5>
-                                        </div>
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem className={this.isActive(2)} onClick={() => this.setSelectedCard(2)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
-                                        <div className="justify-content-between">
-                                            <img src={mastercard} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline' }}></img>
-                                            <h5 className="mb-1" style={{ display: 'inline', marginLeft: '20px' }}>Card : 1234-****-****-1234</h5>
-                                        </div>
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem className={this.isActive(3)} onClick={() => this.setSelectedCard(3)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
-                                        <div className="justify-content-between">
-                                            <img src={visa} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline' }}></img>
-                                            <h5 className="mb-1" style={{ display: 'inline', marginLeft: '20px' }}>Card : 1234-****-****-1234</h5>
-                                        </div>
-                                    </MDBListGroupItem>
+                                    {this.cardList()}
                                 </MDBListGroup>
 
-                                <MDBCardFooter style={{backgroundColor:"inherit"}}>
-                                    <Link to="/account">
-                                        <MDBBtn outline color="dark" size="lg" style={{ marginTop: '30px' }}>Add New Card</MDBBtn>
-                                    </Link>
+                                <MDBCardFooter style={{ backgroundColor: "inherit" }}>
+                                    
+                                        <MDBBtn outline color="dark" size="lg" onClick={()=>this.showAddingCard()} style={{ marginTop: '30px' }}>Add New Card</MDBBtn>
+                                    
                                 </MDBCardFooter>
-
-
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
 
-                    
+
                     <MDBCol md="6" style={{ paddingRight: '100px', paddingLeft: '40px', marginBottom: '100px' }}>
                         <MDBRow middle>
 
@@ -110,26 +128,26 @@ export default class WalletContent extends Component {
                         <MDBRow middle style={{ paddingTop: '50px' }}>
                             <MDBCol md="6" className="text-center" middle>
                                 <MDBCard className="text-center" style={{ marginLeft: '20px', marginRight: '20px' }}>
-                                    <MDBCardHeader style={{backgroundColor:"inherit"}}>
+                                    <MDBCardHeader style={{ backgroundColor: "inherit" }}>
                                         <MDBCardTitle >Select Deposit Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="Amount"  type="number" icon="euro-sign" />
+                                        <MDBInput label="Amount" type="number" icon="euro-sign" />
                                     </MDBCardBody>
-                                    <MDBCardFooter  style={{backgroundColor:"inherit"}}>
+                                    <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                         <MDBBtn outline color="default" size="lg" style={{ marginTop: '30px' }}>Proceed</MDBBtn>
                                     </MDBCardFooter>
                                 </MDBCard>
                             </MDBCol>
                             <MDBCol md="6" className="text-center" middle>
                                 <MDBCard className="text-center" style={{ marginLeft: '20px', marginRight: '20px' }}>
-                                    <MDBCardHeader style={{backgroundColor:"inherit"}}>
+                                    <MDBCardHeader style={{ backgroundColor: "inherit" }}>
                                         <MDBCardTitle >Select Withdrawal Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput  label="Amount" type="number" icon="euro-sign" />
+                                        <MDBInput label="Amount" type="number" icon="euro-sign" />
                                     </MDBCardBody>
-                                    <MDBCardFooter  style={{backgroundColor:"inherit"}}>
+                                    <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                         <MDBBtn outline color="default" size="lg" style={{ marginTop: '30px' }}>Proceed</MDBBtn>
                                     </MDBCardFooter>
                                 </MDBCard>

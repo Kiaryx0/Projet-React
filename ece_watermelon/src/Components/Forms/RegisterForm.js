@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   MDBCard, MDBCardBody, MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBFormInline,
@@ -159,4 +160,5 @@ class RegisterForm extends React.Component {
     );
   };
 }
+
 export default RegisterForm;
