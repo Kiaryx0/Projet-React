@@ -135,8 +135,8 @@ class RegisterForm extends React.Component {
                       />
                       <MDBInput
                         className="white-text"
-                        label="Card holder name"
-                        type="text"
+                        label="Expiration Date"
+                        type="month"
                       />
                       <MDBInput
                         className="white-text"
