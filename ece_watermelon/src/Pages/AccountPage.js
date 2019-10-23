@@ -5,9 +5,9 @@ import Footer from '../Components/Footer';
 import AccountContent from '../Components/AccountContent';
 
 const AccountPage = () => (
-    <div>
+    <div style={{position: 'relative'}}>
         <header><NavBar/></header>
-        <AccountContent/>
+        <div><AccountContent/></div>
         <Footer/>
     </div>
 );

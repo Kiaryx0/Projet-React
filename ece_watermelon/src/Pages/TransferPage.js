@@ -4,7 +4,7 @@ import NavBar from '../Components/NavBar'
 import Footer from '../Components/Footer';
 
 const TransferPage = () => (
-    <div>
+    <div style={{position:"relative"}}>
         <header><NavBar/></header>
         
         <Footer/>

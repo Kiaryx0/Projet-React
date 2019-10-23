@@ -6,6 +6,7 @@ import {
 import './style.css'
 import getSessionCards, { getCardPictureSrc } from "../Database/DatabaseCard";
 import CardAdder from "./Utils/CardAdder";
+import CardDeleter from "./Utils/CardDeleter";
 
 export default class AccountContent extends Component {
 
@@ -13,6 +14,7 @@ export default class AccountContent extends Component {
         super(props);
         this.state = {
             modalAddCard: false,
+            modalDeleteCard: false,
             cardSelected: null,
             cards: getSessionCards()
         };
@@ -20,7 +22,10 @@ export default class AccountContent extends Component {
         this.isActive = this.isActive.bind(this);
         this.setSelectedCard = this.setSelectedCard.bind(this);
         this.cardList = this.cardList.bind(this);
-
+        this.showAddingCard = this.showAddingCard.bind(this);
+        this.closeAddingCard = this.closeAddingCard.bind(this);
+        this.showDeletingCard = this.showDeletingCard.bind(this);
+        this.closeDeletingCard = this.closeDeletingCard.bind(this);
     }
 
     /**
@@ -33,11 +38,31 @@ export default class AccountContent extends Component {
     }
 
     /**
-     * Used to set Adding Card modal state to active
+     * Used to set Adding Card modal state to normal
      */
     closeAddingCard() {
         this.setState({
             modalAddCard: false,
+            cards: getSessionCards()
+        });
+    }
+    /**
+     * Used to set Adding Card modal state to active
+     */
+    showDeletingCard() {
+        if(this.state.cardSelected !== null){
+            this.setState({
+                modalDeleteCard: true
+            });
+        }
+    }
+
+    /**
+     * Used to set Deleting Card modal state to normal
+     */
+    closeDeletingCard() {
+        this.setState({
+            modalDeleteCard: false,
             cards: getSessionCards()
         });
     }
@@ -92,6 +117,7 @@ export default class AccountContent extends Component {
 
             <div>
                 <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() =>this.closeAddingCard()}/> 
+                <CardDeleter  toggled={this.state.modalDeleteCard} selectedID={this.state.cardSelected} closeDeletingCard={() =>this.closeDeletingCard()}/>
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Account Manager</h1>
                 </MDBContainer>
@@ -117,7 +143,7 @@ export default class AccountContent extends Component {
                                             <MDBBtn outline color="success" size="lg" style={{ marginTop: '30px' }} onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
                                         </MDBCol>
                                         <MDBCol md="6">
-                                            <MDBBtn outline color="danger" size="lg" style={{ marginTop: '30px' }}>Delete Card</MDBBtn>
+                                            <MDBBtn outline color="danger" size="lg" style={{ marginTop: '30px' }} onClick={()=>this.showDeletingCard()}>Delete Card</MDBBtn>
                                         </MDBCol>
                                     </MDBRow>
                                 </MDBCardFooter>

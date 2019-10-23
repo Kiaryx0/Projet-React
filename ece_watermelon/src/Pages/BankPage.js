@@ -5,9 +5,9 @@ import Footer from '../Components/Footer';
 
 
 const BankPage = () => (
-    <div>
+    <div style={{position: "relative"}}>
         <header><NavBar/></header>
-        <BankContent/>
+        <div><BankContent/></div>
         <Footer/>
     </div>
 );
