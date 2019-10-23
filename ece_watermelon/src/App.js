@@ -20,10 +20,6 @@ class App extends Component{
         loginUser("louis.deveze@edu.ece.fr", "framboise");
     }
 
-    componentDidMount(){
-        document.title = "ECE Watermelon"
-      }
-
     render(){
         return (
             <div>
