@@ -1,7 +1,7 @@
 import React from 'react';
 import "./acss.css";
 import HomeNavBar from '../Components/NavBar.js';
-import LoginForm from './Components/Forms/LoginForm.js';
+import LoginForm from '../Components/Forms/LoginForm.js';
 import Footer from '../Components/Footer';
 
 

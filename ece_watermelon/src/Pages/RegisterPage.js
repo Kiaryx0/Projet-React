@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeNavBar from '../Components/NavBar.js';
-import RegisterForm from './Components/Forms/RegisterForm.js';
+import RegisterForm from '../Components/Forms/RegisterForm.js';
 import Footer from '../Components/Footer';
 import "./acss.css";
 
