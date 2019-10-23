@@ -5,10 +5,11 @@ import HomeContent from '../Components/HomeContent';
 import Footer from '../Components/Footer';
 
 const HomePage = () => (
-    <div>
-        <header><NavBar /></header>
-        <HomeCarousel />
+    <div style={{position:"relative"}}>
+        <header><NavBar/></header>
+        <div><HomeCarousel />
         <HomeContent />
+        </div>
         <Footer/>
     </div>
 );
