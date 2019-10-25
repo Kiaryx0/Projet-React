@@ -2,7 +2,7 @@
 
 export const users = [
     {   id: 1, first_name: "Louis", last_name: "Deveze", email: "louis.deveze@edu.ece.fr", password: "framboise", isAdmin: true },
-    {   id: 2, first_name: "Maxime", last_name: "Tran", email: "maxime.tran@edu.ece.fr", password: "abricot", isAdmin: false },
+    {   id: 2, first_name: "Maxime", last_name: "Tran", email: "maxime.tran@edu.ece.fr", password: "abricot", isAdmin: true },
     {   id: 3, first_name: "Sebastien", last_name: "Ye", email: "sebastien.ye@edu.ece.fr", password: "papaye", isAdmin: false },
     {   id: 4, first_name: "Charlène", last_name: "Bruno", email: "charlene.bruno@edu.ece.fr", password: "pamplemousse", isAdmin: false },
     {   id: 5, first_name: "Kevin", last_name: "Frydman", email: "kevin.frydman@esquad.co", password: "kiwi", isAdmin: false },

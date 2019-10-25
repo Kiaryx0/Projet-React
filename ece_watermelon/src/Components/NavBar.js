@@ -31,7 +31,7 @@ class NavBar extends Component {
         // If the user isn't connected, show login / register navbar
         if (user === null) {
             return (
-                <MDBNavbarNav right style={{ marginRight: '20px' }}>
+                <MDBNavbarNav right style={{ marginRight: '15px' }}>
                     <MDBNavItem>
                         <MDBNavLink to="/login" className="black-text" style={{ fontSize: '20px', fontWeight:"400"}}>Login</MDBNavLink>
                     </MDBNavItem>
@@ -44,7 +44,7 @@ class NavBar extends Component {
         // If an user is connected, show user navbar
         else{
             return (
-                <MDBNavbarNav right style={{ marginRight: '20px' }}>
+                <MDBNavbarNav right style={{ marginRight: '15px' }}>
                     <MDBNavItem>
                         <p className="dark-grey-text nav-link Ripple-parent" style={{ fontSize: '20px'}}>Welcome {user.first_name} !</p>
                     </MDBNavItem>
@@ -71,14 +71,14 @@ class NavBar extends Component {
     render() {
 
         return (
-            <MDBNavbar className="tempting-azure-gradient" dark expand="md" style={{ width: '100vw' }}>
+            <MDBNavbar className="tempting-azure-gradient" dark expand="md" style={{ minWidth: '100%' }}>
 
                 <MDBNavLink to="/">
                     <MDBNavbarBrand >
-                        <img src={logo} alt="" style={{ width: '50px', height: '50px' }} />
+                        <img src={logo} alt="" style={{ width: '40px', height: '40px' }} />
                     </MDBNavbarBrand>
                     <MDBNavbarBrand>
-                        <strong className="black-text" style={{ fontSize: '25px' }}>ECE WaterMelon</strong>
+                        <strong className="black-text" style={{ fontSize: '20px' }}>ECE WaterMelon</strong>
                     </MDBNavbarBrand>
                 </MDBNavLink>
 

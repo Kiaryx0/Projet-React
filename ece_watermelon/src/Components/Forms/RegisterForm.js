@@ -39,6 +39,7 @@ class RegisterForm extends React.Component {
     });
   }
 
+  /* Modify if necessary / Retrieve value from radio buttons */
   radioCardClick = (myClick) => () => {
     this.setState({
       radio: myClick,
