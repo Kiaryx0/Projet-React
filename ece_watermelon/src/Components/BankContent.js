@@ -59,7 +59,7 @@ export default class WalletContent extends Component {
         this.setState({
             deposit: parseFloat(this.state.deposit).toFixed(2)
         });
-        if(this.state.deposit > 0.0 && this.state.deposit <= this.state.wallet && this.state.cardSelected !== null){
+        if (this.state.deposit > 0.0 && this.state.deposit <= this.state.wallet && this.state.cardSelected !== null) {
             this.setState({
                 modalDeposit: true
             });
@@ -84,7 +84,7 @@ export default class WalletContent extends Component {
         this.setState({
             deposit: parseFloat(this.state.deposit).toFixed(2)
         });
-        if(this.state.withdrawal > 0.0 && this.state.cardSelected !== null){
+        if (this.state.withdrawal > 0.0 && this.state.cardSelected !== null) {
             this.setState({
                 modalWithdrawal: true
             });
@@ -101,13 +101,13 @@ export default class WalletContent extends Component {
         });
     }
 
-    onDepositUpdate(evt){
+    onDepositUpdate(evt) {
         this.setState({
             deposit: evt.target.value
         });
     }
 
-    onWithdrawalUpdate(evt){
+    onWithdrawalUpdate(evt) {
         this.setState({
             withdrawal: evt.target.value
         });
@@ -143,9 +143,9 @@ export default class WalletContent extends Component {
             <MDBListGroupItem key={card.id} className={this.isActive(card.id)} onClick={() => this.setSelectedCard(card.id)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
                 <div className="justify-content-between">
                     <img src={getCardPictureSrc(card)} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline-block' }}></img>
-                    <div style={{ display: 'inline-block', marginLeft: '20px', verticalAlign:'bottom' }}>
-                        <h5 style={{ display: 'inline', marginLeft: '20px', textAlign:"left" }}>Card : ****-****-****-{card.last_4}</h5>
-                        <p style={{marginLeft: '20px',textAlign:"left"}}>Expired at : {card.expired_at}</p>
+                    <div style={{ display: 'inline-block', marginLeft: '20px', verticalAlign: 'bottom' }}>
+                        <h5 style={{ display: 'inline', marginLeft: '20px', textAlign: "left" }}>Card : ****-****-****-{card.last_4}</h5>
+                        <p style={{ marginLeft: '20px', textAlign: "left" }}>Expired at : {card.expired_at}</p>
                     </div>
                 </div>
             </MDBListGroupItem>
@@ -156,9 +156,9 @@ export default class WalletContent extends Component {
         return (
             <div>
 
-                <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() =>this.closeAddingCard()}/> 
-                <DepositModal toggled={this.state.modalDeposit} close={() =>this.closeDeposit()} deposit={this.state.deposit} selectedID={this.state.cardSelected}/>
-                <WithdrawalModal toggled={this.state.modalWithdrawal} close={() =>this.closeWithdrawal()} withdrawal={this.state.withdrawal} selectedID={this.state.cardSelected}/>
+                <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() => this.closeAddingCard()} />
+                <DepositModal toggled={this.state.modalDeposit} close={() => this.closeDeposit()} deposit={this.state.deposit} selectedID={this.state.cardSelected} />
+                <WithdrawalModal toggled={this.state.modalWithdrawal} close={() => this.closeWithdrawal()} withdrawal={this.state.withdrawal} selectedID={this.state.cardSelected} />
 
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Bank Manager</h1>
@@ -167,11 +167,10 @@ export default class WalletContent extends Component {
 
                     <MDBCol md="6" style={{ paddingLeft: '5%', paddingRight: '5%', marginBottom: '100px', width: '100%' }}>
                         <MDBCard className="text-center" >
+                            <MDBCardHeader style={{ backgroundColor: "inherit" }}>
+                                <MDBCardTitle style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
+                            </MDBCardHeader>
                             <MDBCardBody>
-
-                                <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                    <MDBCardTitle style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
-                                </MDBCardHeader>
                                 <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
                                     Select a Card among all the cards associated to your Watermelon Account. You may use this card to make deposit to your bank account as well as withdrawals
                                 </MDBCardText>
@@ -179,13 +178,11 @@ export default class WalletContent extends Component {
                                 <MDBListGroup >
                                     {this.cardList()}
                                 </MDBListGroup>
-
-                                <MDBCardFooter style={{ backgroundColor: "inherit" }}>
-                                    
-                                        <MDBBtn outline color="dark" size="lg" onClick={()=>this.openAddingCard()} style={{ marginTop: '30px' }}>Add New Card</MDBBtn>
-                                    
-                                </MDBCardFooter>
                             </MDBCardBody>
+                            <MDBCardFooter style={{ backgroundColor: "inherit" }}>
+
+                                <MDBBtn outline color="dark" size="lg" onClick={() => this.openAddingCard()} >Add New Card</MDBBtn>
+                            </MDBCardFooter>
                         </MDBCard>
                     </MDBCol>
 
@@ -208,10 +205,10 @@ export default class WalletContent extends Component {
                                         <MDBCardTitle >Select Deposit Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="Amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate}/>
+                                        <MDBInput label="Amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
-                                        <MDBBtn outline color="default" size="lg" style={{ marginTop: '30px' }} onClick={()=>this.openDeposit()} required>Proceed</MDBBtn>
+                                        <MDBBtn outline color="default" size="lg" onClick={() => this.openDeposit()} required>Proceed</MDBBtn>
                                     </MDBCardFooter>
                                 </MDBCard>
                             </MDBCol>
@@ -221,10 +218,10 @@ export default class WalletContent extends Component {
                                         <MDBCardTitle >Select Withdrawal Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="Amount" type="number" icon="euro-sign"  value={this.state.withdrawal} onChange={this.onWithdrawalUpdate}/>
+                                        <MDBInput label="Amount" type="number" icon="euro-sign" value={this.state.withdrawal} onChange={this.onWithdrawalUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
-                                        <MDBBtn outline color="default" size="lg" style={{ marginTop: '30px' }} onClick={()=>this.openWithdrawal()} required>Proceed</MDBBtn>
+                                        <MDBBtn outline color="default" size="lg"  onClick={() => this.openWithdrawal()} required>Proceed</MDBBtn>
                                     </MDBCardFooter>
                                 </MDBCard>
                             </MDBCol>

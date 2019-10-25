@@ -22,6 +22,7 @@ export default class CardEditor extends Component {
         this.updateMonth = this.updateMonth.bind(this);
         this.updateYear = this.updateYear.bind(this);
         this.submit = this.submit.bind(this);
+        this.close = this.close.bind(this);
 
         
     }
@@ -38,8 +39,18 @@ export default class CardEditor extends Component {
             }
         }
         localStorage.setItem("cards", JSON.stringify(cards));
-        this.props.closeEditingCard();
+        this.close();
     };
+
+    close(){
+        this.setState({
+            last_4: "0000",
+            brand: "jcb",
+            month: "01",
+            year: 2018
+        });
+        this.props.closeEditingCard();
+    }
 
     showEditedCard() {
         if (this.props.selectedID !== 0) {
@@ -100,8 +111,8 @@ export default class CardEditor extends Component {
     render() {
         return (
             <form onSubmit={this.submit}>
-            <MDBModal centered isOpen={this.props.toggled} toggle={() => this.props.closeEditingCard()}>
-                <MDBModalHeader toggle={() => this.props.closeEditingCard()}>Edit this Card</MDBModalHeader>
+            <MDBModal centered isOpen={this.props.toggled} toggle={() => this.close()}>
+                <MDBModalHeader toggle={() => this.close()}>Edit this Card</MDBModalHeader>
                 <MDBModalBody>
 
                     {this.showEditedCard()}
@@ -133,7 +144,7 @@ export default class CardEditor extends Component {
 
                 </MDBModalBody>
                 <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={() => this.props.closeEditingCard()}>Close</MDBBtn>
+                    <MDBBtn color="secondary" onClick={() => this.close()}>Close</MDBBtn>
                     <MDBBtn color="primary" type="submit">Proceed</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
