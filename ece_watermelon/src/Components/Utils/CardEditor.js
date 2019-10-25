@@ -1,19 +1,20 @@
 import React, { Component } from "react";
-import { MDBInput, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn } from "mdbreact"
-import { getSessionUser } from "../../Database/DatabaseSession";
+import { MDBModal, MDBInput, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn } from "mdbreact"
+import { getCardPictureSrc, getCard} from "../../Database/DatabaseCard";
 
-export default class CardAdder extends Component {
+export default class CardEditor extends Component {
 
     constructor(props) {
         super(props);
-        this.toggled = false;
-        this.closeAddingCard = null;
-        this.state = {
+        this.toggled = true;
+        this.closeEditingCard = null;
+        this.state ={
             last_4: "0000",
             brand: "jcb",
             month: "01",
-            year: "2018"
-        }
+            year: 2018
+        };
+        this.showEditedCard = this.showEditedCard.bind(this);
         this.generateMonthOption = this.generateMonthOption.bind(this);
         this.generateYearOption = this.generateYearOption.bind(this);
         this.updateLast4 = this.updateLast4.bind(this);
@@ -21,34 +22,42 @@ export default class CardAdder extends Component {
         this.updateMonth = this.updateMonth.bind(this);
         this.updateYear = this.updateYear.bind(this);
         this.submit = this.submit.bind(this);
+
         
     }
 
-    // Validate form and update the card
-    submit(event){
+     // Validate form and update the card
+     submit(event){
         event.preventDefault();
-        if(this.state.last_4.length === 4){
-            console.log(this.state.last_4 +" " + this.state.brand + " "+ this.state.month + " "+ this.state.year);
-            let cards = JSON.parse(localStorage.getItem("cards"));
-            let identifier = cards.length+1;
-            cards.push({id: identifier,
-                        last_4: this.state.last_4, 
-                        brand: this.state.brand, 
-                        expired_at: this.state.year + "-" + this.state.month + "-01", 
-                        user_id: getSessionUser().id});
-            localStorage.setItem("cards", JSON.stringify(cards));
-            this.close();
+        let cards = JSON.parse(localStorage.getItem("cards"));
+        for(var i= 0; i<cards.length; i++){
+            if(cards[i].id === this.props.selectedID){
+                cards[i].last_4 = this.state.last_4;
+                cards[i].brand = this.state.brand;
+                cards[i].expired_at = this.state.year + "-" + this.state.month + "-01";
+            }
         }
+        localStorage.setItem("cards", JSON.stringify(cards));
+        this.props.closeEditingCard();
     };
 
-    close(){
-        this.setState({
-            last_4: "0000",
-            brand: "jcb",
-            month: "01",
-            year: 2018
-        });
-        this.props.closeAddingCard();
+    showEditedCard() {
+        if (this.props.selectedID !== 0) {
+
+            let card = getCard(this.props.selectedID);
+            if (card !== null) {
+                return (
+                    <div>
+                        <p>Are you sure you want to edit the following card ?</p>
+                        <img src={getCardPictureSrc(card)} alt="" style={{ width: '50%', maxWidth: '80px', display: 'inline-block' }}></img>
+                        <div style={{ display: 'inline-block', marginLeft: '20px', verticalAlign:'bottom' }}>
+                            <h5 style={{textAlign:"left"}}>Card : ****-****-****-{card.last_4}</h5>
+                            <p style={{textAlign:"left"}}>Expired at : {card.expired_at}</p>
+                        </div>
+                    </div>
+                )
+            }
+        }
     }
 
     updateLast4(event) {
@@ -90,13 +99,13 @@ export default class CardAdder extends Component {
 
     render() {
         return (
-            
-            <form className="needs-validation" onSubmit={this.submit}>
-            <MDBModal centered isOpen={this.props.toggled} toggle={() => this.close()}>
-                <MDBModalHeader toggle={() => this.close()}>Add a new Card</MDBModalHeader>
+            <form onSubmit={this.submit}>
+            <MDBModal centered isOpen={this.props.toggled} toggle={() => this.props.closeEditingCard()}>
+                <MDBModalHeader toggle={() => this.props.closeEditingCard()}>Edit this Card</MDBModalHeader>
                 <MDBModalBody>
 
-                        <MDBInput value={this.state.last_4} onChange={this.updateLast4} type="number" className="form-control" label="Last Four numbers of your card" required/>
+                    {this.showEditedCard()}
+                    <MDBInput value={this.state.last_4} onChange={this.updateLast4} type="number" className="form-control" label="Last Four numbers of your card" required/>
                         <div style={{ marginBottom: '15px' }}>
                             <p className="dark-grey-text" style={{ fontSize: '14px' }}>Card Brand</p>
                             <select className="browser-default custom-select" label="Card Brand" onChange={this.updateBrand}>
@@ -121,10 +130,10 @@ export default class CardAdder extends Component {
                                 {this.generateYearOption()}
                             </select>
                         </div>
-                    
+
                 </MDBModalBody>
                 <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={() => this.close()}>Close</MDBBtn>
+                    <MDBBtn color="secondary" onClick={() => this.props.closeEditingCard()}>Close</MDBBtn>
                     <MDBBtn color="primary" type="submit">Proceed</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>

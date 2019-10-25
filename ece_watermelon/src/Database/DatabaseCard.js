@@ -34,3 +34,19 @@ export function getCardPictureSrc(card){
         }
     }
 }
+
+/**
+ * Return the card with the given id
+ * @param {card id} cardID 
+ */
+export function getCard(cardID){
+    let cards = JSON.parse(localStorage.getItem("cards"));
+    let array = cards.filter(c=>{
+        return c.id === cardID
+    });
+    if(array.length === 1){
+        return array[0];
+    }else{
+        return null;
+    }
+}
