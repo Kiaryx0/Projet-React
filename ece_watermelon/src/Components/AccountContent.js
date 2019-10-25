@@ -3,9 +3,12 @@ import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
     MDBCardTitle, MDBContainer
 } from "mdbreact";
-import './style.css'
+import './style.css';
 import getSessionCards, { getCardPictureSrc } from "../Database/DatabaseCard";
 import CardAdder from "./Utils/CardAdder";
+import CardDeleter from "./Utils/CardDeleter";
+import CardEditor from "./Utils/CardEditor";
+import AccountEditor from "./Utils/AccountEditor";
 
 export default class AccountContent extends Component {
 
@@ -13,6 +16,8 @@ export default class AccountContent extends Component {
         super(props);
         this.state = {
             modalAddCard: false,
+            modalDeleteCard: false,
+            modalEditCard: false,
             cardSelected: null,
             cards: getSessionCards()
         };
@@ -20,7 +25,10 @@ export default class AccountContent extends Component {
         this.isActive = this.isActive.bind(this);
         this.setSelectedCard = this.setSelectedCard.bind(this);
         this.cardList = this.cardList.bind(this);
-
+        this.showAddingCard = this.showAddingCard.bind(this);
+        this.closeAddingCard = this.closeAddingCard.bind(this);
+        this.showDeletingCard = this.showDeletingCard.bind(this);
+        this.closeDeletingCard = this.closeDeletingCard.bind(this);
     }
 
     /**
@@ -33,11 +41,53 @@ export default class AccountContent extends Component {
     }
 
     /**
-     * Used to set Adding Card modal state to active
+     * Used to set Adding Card modal state to normal
      */
     closeAddingCard() {
         this.setState({
             modalAddCard: false,
+            cards: getSessionCards()
+        });
+    }
+
+    /**
+     * Used to set Editing Card modal state to active
+     */
+    showEditingCard() {
+        if(this.state.cardSelected !== null){
+            this.setState({
+                modalEditCard: true
+            });
+        }
+    }
+
+    /**
+     * Used to set Editing Card modal state to normal
+     */
+    closeEditingCard() {
+        this.setState({
+            modalEditCard: false,
+            cards: getSessionCards()
+        });
+    }
+
+    /**
+     * Used to set Adding Card modal state to active
+     */
+    showDeletingCard() {
+        if(this.state.cardSelected !== null){
+            this.setState({
+                modalDeleteCard: true
+            });
+        }
+    }
+
+    /**
+     * Used to set Deleting Card modal state to normal
+     */
+    closeDeletingCard() {
+        this.setState({
+            modalDeleteCard: false,
             cards: getSessionCards()
         });
     }
@@ -80,8 +130,11 @@ export default class AccountContent extends Component {
         return this.state.cards.map((card) =>
             <MDBListGroupItem key={card.id}  className={this.isActive(card.id)} onClick={() => this.setSelectedCard(card.id)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
                 <div className="justify-content-between">
-                    <img src={getCardPictureSrc(card)} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline' }}></img>
-                    <h5 className="mb-1" style={{ display: 'inline', marginLeft: '20px' }}>Card : ****-****-****-{card.last_4}</h5>
+                    <img src={getCardPictureSrc(card)} alt="" style={{ width: '100%', maxWidth: '80px', display: 'inline-block' }}></img>
+                    <div style={{ display: 'inline-block', marginLeft: '20px', verticalAlign:'bottom' }}>
+                        <h5 style={{ display: 'inline', marginLeft: '20px', textAlign:"left" }}>Card : ****-****-****-{card.last_4}</h5>
+                        <p style={{marginLeft: '20px',textAlign:"left"}}>Expired at : {card.expired_at}</p>
+                    </div>
                 </div>
             </MDBListGroupItem>
         )
@@ -92,6 +145,8 @@ export default class AccountContent extends Component {
 
             <div>
                 <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() =>this.closeAddingCard()}/> 
+                <CardDeleter  toggled={this.state.modalDeleteCard} selectedID={this.state.cardSelected} closeDeletingCard={() =>this.closeDeletingCard()}/>
+                <CardEditor  toggled={this.state.modalEditCard} selectedID={this.state.cardSelected} closeEditingCard={() =>this.closeEditingCard()}/>
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Account Manager</h1>
                 </MDBContainer>
@@ -105,31 +160,30 @@ export default class AccountContent extends Component {
                                 <MDBCardTitle style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
                             </MDBCardHeader>
                             <MDBCardBody style={{ margin: '50px' }}>
-
-
                                 <MDBListGroup >
                                     {this.cardList()}
                                 </MDBListGroup>
-
+                            </MDBCardBody>
                                 <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                     <MDBRow middle>
-                                        <MDBCol md="6">
-                                            <MDBBtn outline color="success" size="lg" style={{ marginTop: '30px' }} onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
+                                        <MDBCol md="4">
+                                            <MDBBtn outline color="success" size="lg"onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
                                         </MDBCol>
-                                        <MDBCol md="6">
-                                            <MDBBtn outline color="danger" size="lg" style={{ marginTop: '30px' }}>Delete Card</MDBBtn>
+                                        <MDBCol md="4">
+                                            <MDBBtn outline color="warning" size="lg" onClick={()=>this.showEditingCard()}>Edit Card</MDBBtn>
+                                        </MDBCol>
+                                        <MDBCol md="4">
+                                            <MDBBtn outline color="danger" size="lg" onClick={()=>this.showDeletingCard()}>Delete Card</MDBBtn>
                                         </MDBCol>
                                     </MDBRow>
                                 </MDBCardFooter>
 
-                            </MDBCardBody>
+                            
                         </MDBCard>
                     </MDBCol>
 
-                    <MDBCol md="6" style={{ paddingRight: '40px', paddingLeft: '100px', marginBottom: '150px' }}>
-                        <p>
-                            Ici la modif des infos
-                        </p>
+                    <MDBCol md="6" style={{ paddingLeft: '5%', paddingRight: '5%', marginBottom: '150px', width: '100%' }}>
+                        <AccountEditor refresh={this.props.refresh}/>
                     </MDBCol>
 
                 </MDBRow>
