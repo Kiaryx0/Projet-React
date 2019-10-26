@@ -22,7 +22,7 @@ export function importDatabase(){
     localStorage.setItem("payouts", payoutData);
 
     var transferData = JSON.stringify(transfers);
-    localStorage.setItem("tranfers", transferData);
+    localStorage.setItem("transfers", transferData);
 }
 
 

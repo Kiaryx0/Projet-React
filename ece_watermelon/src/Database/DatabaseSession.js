@@ -14,9 +14,9 @@ export function loginUser(mail, pswrd){
     if(array.length === 0){
         logoutUser();
     }else{
+        check = true;
         let logged = array[0];
         localStorage.setItem("session", JSON.stringify(logged));
-        check = true;
     }
     return check;
 }

@@ -122,10 +122,10 @@ export default class AccountEditor extends Component {
                                     <MDBInput label="firstName" type={this.showPassword()} icon="pen" value={this.state.password} onChange={this.onPasswordUpdate} />
                                 </div>
                             </MDBCol>
-                            <MDBCol md="3">
-                                <p  style={{ display: "inline-block"}}>Show password?</p>
+                            <MDBCol className="d-flex align-items-center">
+                                <p>Show password?</p>
                             </MDBCol>
-                            <MDBCol md="2">
+                            <MDBCol className="d-flex align-items center">
                                 <MDBInput type="checkbox" id="checkbox2" onChange={this.onCheck} style={{width:"20px"}}/>
                             </MDBCol>
                         </MDBRow>                      

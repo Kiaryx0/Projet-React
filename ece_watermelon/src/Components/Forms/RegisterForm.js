@@ -1,9 +1,13 @@
 
 import React from 'react';
+import {Redirect} from "react-router-dom"
 import {
-  MDBCard, MDBCardBody, MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBFormInline,
+  MDBCard, MDBCardBody, MDBContainer, MDBAlert, MDBInput,
+  MDBBtn, MDBIcon, MDBMask, MDBView
 } from 'mdbreact';
 import Stepper from 'react-stepper-horizontal';
+import background from '../../Pictures/forms_background.jpg';
+import loginUser from '../../Database/DatabaseSession.js';
 
 class RegisterForm extends React.Component {
 
@@ -11,14 +15,30 @@ class RegisterForm extends React.Component {
     super(props);
     this.state = {
       currentStep: 0,
-      steps: [{ title: 'Personal Informations' },
-      { title: 'Payment Infos' }],
-      radio: '',
+      steps: [{ title: 'Personal Informations', onClick: () => {
+        this.handleStepperClick(0);
+      } 
+    },
+      { title: 'Payment Infos', onClick: () => {
+        this.handleStepperClick(1);
+      } 
+    }],
+      inputEmail: "",
+      inputPassword: "",
+      inputFirstName: "",
+      inputLastName: "",
+      inputCardType: "",
+      inputCardNumber: "",
+      inputCVC: "",
+      inputExpirationDate: "",
+      redirect: false,
+      alert_invisible: true
     };
-    this.handleNextBtn=this.handleNextBtn.bind(this);
-    this.handlePrvsBtn=this.handlePrvsBtn.bind(this);
-    this.handleSubmission=this.handleSubmission.bind(this);
-    this.radioCardClick=this.radioCardClick.bind(this);
+    this.handleNextBtn = this.handleNextBtn.bind(this);
+    this.handlePrvsBtn = this.handlePrvsBtn.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleRadioBtn = this.handleRadioBtn.bind(this);
   }
 
   handleNextBtn() {
@@ -33,131 +53,221 @@ class RegisterForm extends React.Component {
     });
   }
 
-  handleSubmission() {
+  handleInputChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+
     this.setState({
-      currentStep: 0,
+      [name]: value
     });
   }
 
-  /* Modify if necessary / Retrieve value from radio buttons */
-  radioCardClick = (myClick) => () => {
+  handleRadioBtn = (argCard) => () => {
     this.setState({
-      radio: myClick,
+      inputCardType: argCard
     });
   }
+
+  handleStepperClick(stepClick) {
+    this.setState({
+      currentStep: stepClick
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    if(this.state.inputCVC.length === 4 && this.state.inputCardNumber.length === 16 &&
+      this.state.inputEmail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+      console.log(this.state.inputCVC + "" + this.state.inputExpirationDate + "" + this.state.inputLastName+ ""+this.state.inputCardType);
+      let users = JSON.parse(localStorage.getItem("users"));
+      let cards = JSON.parse(localStorage.getItem("cards"));
+      let newIdUser = users.length+1;
+      let newIdCard = cards.length+1;
+      users.push({ id: newIdUser,
+        first_name: this.state.inputFirstName,
+        last_name: this.state.inputLastName,
+        email: this.state.inputEmail,
+        password: this.state.inputPassword,
+        isAdmin: false
+      });
+      localStorage.setItem("users", JSON.stringify(users));
+      cards.push({ id: newIdCard,
+        last_4: this.state.inputCVC,
+        brand: this.state.inputCardType,
+        expired_at: this.state.inputExpirationDate + "-01",
+        user_id: newIdUser
+      });
+      localStorage.setItem("cards", JSON.stringify(cards));
+      loginUser(this.state.inputEmail, this.state.inputPassword);
+      this.setState({
+        redirect: true
+      });
+    }
+      else{
+        this.setState({
+          alert_invisible: false
+        });
+      }
+    }
 
   render() {
     return (
-      <MDBContainer>
-        <MDBRow>
-          <MDBCol className="d-flex justify-content-center">
-            <MDBCard className="my-5 p-3" style={{ backgroundColor: "rgba(150,150,150,0.3)" }}>
-              <MDBCardBody className="white-text">
-                <form className="white-text" method="post" action="">
-                  <p className="h3 text-center mt-3">Sign up</p>
-                  <hr className="hr-light" />
-                  <Stepper steps={this.state.steps} activeStep={this.state.currentStep} defaultTitleColor={"ffffff"} activeTitleColor={"#5096FF"} />
+      <MDBView>
+        <img src={background} alt="" style={{ backgroundRepeat: "cover" }} />
+        <MDBMask overlay="black-light">
+          <MDBContainer className="d-flex flex-column align-items-center">
+                {this.state.alert_invisible ? <div className="invisible"></div> : <div className="visible mt-3">
+                  <MDBAlert color="danger" dismiss>There are some errors in your sign up form!</MDBAlert>
+                </div>}
+                <MDBCard className="mt-3" style={{ backgroundColor: "rgba(150,150,150,0.3)" }}>
+                  <MDBCardBody className="white-text">
+                    <form className="white-text" onSubmit={this.handleSubmit}>
+                      <p className="h3 text-center mt-3">Sign up</p>
+                      <hr className="hr-light" />
+                      <Stepper steps={this.state.steps} activeStep={this.state.currentStep} defaultTitleColor={"ffffff"} activeTitleColor={"#5096FF"} />
+                      
+                      {this.state.currentStep === 0 &&
+                        <div>
+                          <MDBInput
+                            required
+                            name="inputEmail"
+                            className="white-text"
+                            value={this.state.inputEmail}
+                            label="Your email"
+                            type="email"
+                            icon="envelope"
+                            onChange={this.handleInputChange}
+                          />
+                          <MDBInput
+                            required
+                            name="inputPassword"
+                            className="white-text"
+                            label="Your password"
+                            value={this.state.inputPassword}
+                            type="password"
+                            icon="lock"
+                            onChange={this.handleInputChange}
+                          />
+                          <MDBInput
+                            required
+                            name="inputFirstName"
+                            className="white-text"
+                            value={this.state.inputFirstName}
+                            label="Your first name"
+                            type="text"
+                            icon="user"
+                            onChange={this.handleInputChange}
+                          />
+                          <MDBInput
+                            required
+                            name="inputLastName"
+                            className="white-text"
+                            label="Your last name"
+                            value={this.state.inputLastName}
+                            type="text"
+                            icon="id-card"
+                            onChange={this.handleInputChange}
+                          />
+                          <div>
+                            <MDBBtn color="indigo" onClick={this.handleNextBtn}>Next</MDBBtn>
+                          </div>
+                        </div>
+                      }
 
-                  {this.state.currentStep === 0 &&
-                    <div>
-                      <MDBInput
-                        className="white-text"
-                        label="Your email"
-                        type="email"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="Your password"
-                        type="password"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="Your first name"
-                        type="text"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="Your last name"
-                        type="text"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="Your address"
-                        type="text"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="State Code"
-                        type="number"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="Phone Number"
-                        type="tel"
-                      />
-                      <div>
-                        <MDBBtn color="indigo" onClick={this.handleNextBtn}>Next</MDBBtn>
-                      </div>
-                    </div>
-                  }
+                      {this.state.currentStep === 1 &&
+                        <div>
+                          <div className="d-flex align-items-center mt-3">
+                            <MDBIcon fab icon="cc-visa" size="3x" />
+                            <MDBInput
+                            className="d-flex w-auto position-relative"
+                              required
+                              name="inputCardType"
+                              type='radio'
+                              id='Visa'
+                              containerClass='mx-2'
+                              value={this.state.inputCardType}
+                              checked={this.state.inputCardType === "visa"}
+                              onClick={this.handleRadioBtn("visa")}
+                            />
+                            <MDBIcon fab icon="cc-mastercard" size="3x" />
+                            <MDBInput
+                            className="d-flex w-auto position-relative"
+                              name="inputCardType"
+                              type='radio'
+                              id='MasterCard'
+                              containerClass='mx-2'
+                              value={this.state.inputCardType}
+                              checked={this.state.inputCardType === "master_card"}
+                              onClick={this.handleRadioBtn("master_card")}
+                            />
+                            <MDBIcon fab icon="cc-jcb" size="3x" />
+                            <MDBInput
+                            className="d-flex w-auto position-relative"
+                              name="inputCardType"
+                              type='radio'
+                              id='JCB'
+                              containerClass='mx-2'
+                              value={this.state.inputCardType}
+                              checked={this.state.inputCardType === "jcb"}
+                              onClick={this.handleRadioBtn("jcb")}
+                            />
+                            <MDBIcon fab icon="cc-amex" size="3x" />
+                            <MDBInput
+                            className="d-flex w-auto position-relative"
+                              name="inputCardType"
+                              type='radio'
+                              id='American Express'
+                              containerClass='mx-2'
+                              value={this.state.inputCardType}
+                              checked={this.state.inputCardType === "american_express"}
+                              onClick={this.handleRadioBtn("american_express")}
+                            />
+                          </div>
+                          <MDBInput
+                            required
+                            name="inputCardNumber"
+                            className="white-text"
+                            label="Your card number"
+                            value={this.state.inputCardNumber}
+                            type="number"
+                            icon="credit-card"
+                            onChange={this.handleInputChange}
+                          />
+                          <MDBInput
+                            required
+                            name="inputExpirationDate"
+                            className="white-text"
+                            label="Expiration Date"
+                            value={this.state.inputExpirationDate}
+                            type="month"
+                            icon="credit-card"
+                            onChange={this.handleInputChange}
+                          />
+                          <MDBInput
+                            required
+                            name="inputCVC"
+                            className="white-text"
+                            label="Card Validation Code (4 digits)"
+                            value={this.state.inputCVC}
+                            type="number"
+                            icon="shield-alt"
+                            onChange={this.handleInputChange}
+                          />
+                          <div className="text-center">
+                            <MDBBtn color="indigo" onClick={this.handlePrvsBtn}>Previous</MDBBtn>
+                            <MDBBtn color="indigo" type="submit">Create your account</MDBBtn>
+                            {this.state.redirect && <Redirect to='/'/>}
+                          </div>
+                        </div>
+                      }
 
-                  {this.state.currentStep === 1 &&
-                    <div>
-                      <MDBFormInline>
-                        <MDBInput
-                        onClick={this.radioCardClick(1)}
-                        checked={this.state.radio === 1 ? true : false}
-                        label='Visa'
-                        type='radio'
-                        id='Visa'
-                        containerClass='mx-3'
-                        />
-                        <MDBInput
-                        onClick={this.radioCardClick(2)}
-                        checked={this.state.radio === 2 ? true : false}
-                        label='MasterCard'
-                        type='radio'
-                        id='MasterCard'
-                        containerClass='mx-3'
-                        />
-                        <MDBInput
-                        onClick={this.radioCardClick(3)}
-                        checked={this.state.radio === 3 ? true : false}
-                        label='CB'
-                        type='radio'
-                        id='CB'
-                        containerClass='mx-3'
-                        />
-                      </MDBFormInline>
-                      <MDBInput
-                        className="white-text"
-                        label="Your card number"
-                        type="number"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="Expiration Date"
-                        type="month"
-                      />
-                      <MDBInput
-                        className="white-text"
-                        label="CVC (Card Validation Code)"
-                        type="number"
-                      />
-
-                      <div className="text-center">
-                        <MDBBtn color="indigo" onClick={this.handlePrvsBtn}>Previous</MDBBtn>
-                        <MDBBtn color="indigo" onClick={this.handleSubmission}>Create your account</MDBBtn>
-                      </div>
-                    </div>
-                  }
-
-                </form>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+                    </form>
+                  </MDBCardBody>
+                </MDBCard>
+          </MDBContainer>
+        </MDBMask>
+      </MDBView>
     );
   };
 }
