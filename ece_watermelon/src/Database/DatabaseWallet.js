@@ -81,3 +81,60 @@ export function makeWithdrawal(money, card){
     payins.push({   id: payins.length+1, wallet_id: current.id, amount: money })
     localStorage.setItem("payins", JSON.stringify(payins));
 }
+
+export function getSessionDeposits(){
+    let walletID = getSessionWallet().id;
+    let deposit = JSON.parse(localStorage.getItem("payouts"))
+    if(deposit !== null){
+        deposit.reverse()
+        return deposit.filter(d=>{
+            return d.wallet_id === walletID;
+        })
+    }
+    return [];
+}
+
+export function getSessionWithdrawals(){
+    let walletID = getSessionWallet().id;
+    let withdrawal = JSON.parse(localStorage.getItem("payins"))
+    if(withdrawal !== null){
+        withdrawal.reverse()
+        return withdrawal.filter(w=>{
+            return w.wallet_id === walletID;
+        })
+    }
+    return [];
+}
+
+export function getSessionTransfers(){
+    let walletID = getSessionWallet().id;
+    let transfer = JSON.parse(localStorage.getItem("transfers"))
+    if(transfer !== null){
+        transfer.reverse()
+        return transfer.filter(t=>{
+            return t.debited_wallet_id === walletID || t.credited_wallet_id === walletID;
+        })
+    }
+    return [];
+    
+}
+
+export function getUserWithWallet(walletID){
+    let wallets = JSON.parse(localStorage.getItem("wallets"));
+    let users = JSON.parse(localStorage.getItem("users"));
+    
+    let array = wallets.filter((w)=>{
+        return w.id === walletID;
+    })
+    if(array.length === 1){
+        let wallet = array[0];
+        array = users.filter((u)=>{
+            return u.id === wallet.user_id
+        })
+        if(array.length === 1){
+            return array[0].first_name;
+        }
+    }
+
+    return "";
+}

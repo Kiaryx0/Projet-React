@@ -167,7 +167,7 @@ export default class AccountContent extends Component {
                                 <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                     <MDBRow middle>
                                         <MDBCol md="4">
-                                            <MDBBtn outline color="success" size="lg"onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
+                                            <MDBBtn outline color="success" size="lg" onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
                                         </MDBCol>
                                         <MDBCol md="4">
                                             <MDBBtn outline color="warning" size="lg" onClick={()=>this.showEditingCard()}>Edit Card</MDBBtn>

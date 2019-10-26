@@ -1,81 +1,154 @@
 import React, { Component } from "react";
-import { MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody,
-     MDBCardTitle, MDBCardText, MDBContainer } from "mdbreact";
+import {
+    MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody,
+    MDBCardTitle, MDBCardText, MDBContainer, MDBCardHeader
+} from "mdbreact";
 import wallet from '../Pictures/wallet.png';
 import deposit from '../Pictures/deposit.png';
 import payment from '../Pictures/payment.png';
 import withdrawal from '../Pictures/withdrawal.png';
 import card from '../Pictures/card.png';
 import { Link } from 'react-router-dom';
-import { getWalletAmount } from "../Database/DatabaseWallet";
-
+import getSessionWallet, { getWalletAmount,getUserWithWallet, getSessionWithdrawals, getSessionTransfers, getSessionDeposits } from "../Database/DatabaseWallet";
+import "./style.css"
 
 
 export default class WalletContent extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            history: "deposit",
+            array: getSessionDeposits()
+        }
+        this.switchToDeposit = this.switchToDeposit.bind(this);
+        this.switchToWithdrawal = this.switchToWithdrawal.bind(this);
+        this.switchToTransfer = this.switchToTransfer.bind(this);
+        this.buttonSize = this.buttonSize.bind(this);
+    }
+
+    /**
+     * Set the display mode to the deposit
+     */
+    switchToDeposit() {
+        this.setState({
+            history: "deposit",
+            array: getSessionDeposits()
+        });
+    }
+
+    /**
+     * Set the display mode to the withdrawal
+     */
+    switchToWithdrawal() {
+        this.setState({
+            history: "withdrawal",
+            array: getSessionWithdrawals()
+        });
+    }
+
+    /**
+     * Set the display mode to the transfer
+     */
+    switchToTransfer() {
+        this.setState({
+            history: "transfer",
+            array: getSessionTransfers()
+        });
+    }
+
+    /**
+     * Button Size 
+     */
+    buttonSize(button) {
+        if (button === this.state.history) {
+            return { fontSize: "28px", display: "inline-block", margin: "10px" };
+        } else {
+            return { fontSize: "22px", display: "inline-block", margin: "10px" };
+        }
+    }
+
+    content() {
+
+        let walletID = getSessionWallet().id
+        if (this.state.history === "deposit") {
+            return this.state.array.map((deposit) =>
+                <MDBListGroupItem key={deposit.id} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
+                    <div className="d-flex w-100 justify-content-between">
+                        <h4 className="mb-1">Deposit to Bank</h4>
+                    </div>
+                    <div className="d-flex w-100 justify-content-between">
+                        <strong style={{ fontSize: '20px' }}>-{(deposit.amount / 100).toFixed(2)}€</strong>
+                    </div>
+                </MDBListGroupItem>
+            );
+        } else if (this.state.history === "withdrawal") {
+            return this.state.array.map((withdrawal) =>
+                <MDBListGroupItem key={withdrawal.id} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
+                    <div className="d-flex w-100 justify-content-between">
+                        <h4 className="mb-1">Withdrawal from Bank</h4>
+                    </div>
+                    <div className="d-flex w-100 justify-content-between">
+                        <strong style={{ fontSize: '20px' }}>+{(withdrawal.amount / 100).toFixed(2)}€</strong>
+                    </div>
+                </MDBListGroupItem>
+            );
+        } else if (this.state.history === "transfer") {
+            return this.state.array.map((transfer) => {
+                if (transfer.credited_wallet_id === walletID) {
+                    return (
+                        <MDBListGroupItem key={transfer.id} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
+                            <div className="d-flex w-100 justify-content-between">
+                                <h4 className="mb-1">Got money from {getUserWithWallet(transfer.debited_wallet_id)}</h4>
+                            </div>
+                            <div className="d-flex w-100 justify-content-between">
+                                <strong style={{ fontSize: '20px' }}>+{(transfer.amount / 100).toFixed(2)}€</strong>
+                            </div>
+                        </MDBListGroupItem>
+                    );
+                }else{
+                    return (
+                        <MDBListGroupItem key={transfer.id} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
+                            <div className="d-flex w-100 justify-content-between">
+                                <h4 className="mb-1">Sent money to {getUserWithWallet(transfer.credited_wallet_id)}</h4>
+                            </div>
+                            <div className="d-flex w-100 justify-content-between">
+                                <strong style={{ fontSize: '20px' }}>-{(transfer.amount / 100).toFixed(2)}€</strong>
+                            </div>
+                        </MDBListGroupItem>
+                    );
+                }
+            }
+
+            );
+        }
+    }
+
     render() {
         return (
             <div>
-                <MDBContainer style={{marginBottom:'50px', marginTop:'50px'}}>
+                <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Wallet Manager</h1>
                 </MDBContainer>
                 <MDBRow className="text-align-center" >
                     <MDBCol md="5" style={{ paddingLeft: '5%', paddingRight: '5%', paddingBottom: '100px', width: '100%' }}>
-                        <MDBCard className="text-center">
-                            <MDBCardBody>
-
+                        <MDBCard className="text-center" style={{ maxWidth: "90%" }}>
+                            <MDBCardHeader style={{ backgroundColor: "inherit" }}>
                                 <MDBCardTitle style={{ fontSize: '36px' }}>Wallet Activity</MDBCardTitle>
                                 <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
                                     Keep Track here of the last activities on your wallet. this includes payments to other users of WaterMelon, and Transfers From or To your Bank account.
                                 </MDBCardText>
 
-                                <MDBListGroup >
-                                    <MDBListGroupItem hover style={{ paddingTop: '25px', paddingBottom: '25px' }}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h4 className="mb-1">Transfer From Bank</h4>
-                                            <small>3 Days Ago</small>
-                                        </div>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <p className="mb-1" style={{ verticalAlign: 'middle' }}>Using the card : ****-****-****-1234</p>
-                                            <strong style={{ fontSize: '20px' }}>+12€</strong>
-                                        </div>
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem hover style={{ paddingTop: '25px', paddingBottom: '25px' }}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h4 className="mb-1">Transfer From Bank</h4>
-                                            <small>3 Days Ago</small>
-                                        </div>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <p className="mb-1" style={{ verticalAlign: 'middle' }}>Using the card : ****-****-****-1234</p>
-                                            <strong style={{ fontSize: '20px' }}>+12€</strong>
-                                        </div>
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem hover style={{ paddingTop: '25px', paddingBottom: '25px' }}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h4 className="mb-1">Transfer From Bank</h4>
-                                            <small>3 Days Ago</small>
-                                        </div>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <p className="mb-1" style={{ verticalAlign: 'middle' }}>Using the card : ****-****-****-1234</p>
-                                            <strong style={{ fontSize: '20px' }}>+12€</strong>
-                                        </div>
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem hover style={{ paddingTop: '25px', paddingBottom: '25px' }}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h4 className="mb-1">Transfer From Bank</h4>
-                                            <small>3 Days Ago</small>
-                                        </div>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <p className="mb-1" style={{ verticalAlign: 'middle' }}>Using the card : ****-****-****-1234</p>
-                                            <strong style={{ fontSize: '20px' }}>+12€</strong>
-                                        </div>
-                                    </MDBListGroupItem>
-
+                            </MDBCardHeader>
+                            <MDBCardHeader style={{ backgroundColor: "inherit" }}>
+                                <h2 color="dark" style={this.buttonSize("deposit")} onClick={() => this.switchToDeposit()}>Deposits</h2>
+                                <h2 color="dark" style={this.buttonSize("withdrawal")} onClick={() => this.switchToWithdrawal()}>Withdrawals</h2>
+                                <h2 color="dark" style={this.buttonSize("transfer")} onClick={() => this.switchToTransfer()}>Transfers</h2>
+                            </MDBCardHeader>
+                            <MDBCardBody>
+                                <MDBListGroup>
+                                    {this.content()}
                                 </MDBListGroup>
-                                <MDBBtn outline color="dark" size="lg" style={{ marginTop: '30px' }}>
-                                    Show Older Activity
-                                </MDBBtn>
-
                             </MDBCardBody>
                         </MDBCard>
 
