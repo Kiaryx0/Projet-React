@@ -59,7 +59,7 @@ export default class WalletContent extends Component {
         this.setState({
             deposit: parseFloat(this.state.deposit).toFixed(2)
         });
-        if (this.state.deposit > 0.0 && this.state.deposit <= this.state.wallet && this.state.cardSelected !== null) {
+        if (parseFloat(this.state.deposit) > 0.0 && parseFloat(this.state.deposit) <= parseFloat(this.state.wallet) && this.state.cardSelected !== null) {
             this.setState({
                 modalDeposit: true
             });
@@ -82,9 +82,9 @@ export default class WalletContent extends Component {
      */
     openWithdrawal() {
         this.setState({
-            deposit: parseFloat(this.state.deposit).toFixed(2)
+            withdrawal: parseFloat(this.state.withdrawal).toFixed(2)
         });
-        if (this.state.withdrawal > 0.0 && this.state.cardSelected !== null) {
+        if (parseFloat(this.state.withdrawal) > 0.0 && this.state.cardSelected !== null) {
             this.setState({
                 modalWithdrawal: true
             });
