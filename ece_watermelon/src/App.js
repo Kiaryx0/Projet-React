@@ -9,7 +9,6 @@ import BankPage from './Pages/BankPage';
 import AccountPage from './Pages/AccountPage';
 import TransferPage from './Pages/TransferPage';
 import importDatabase from './Database/DatabaseImport'
-import loginUser from './Database/DatabaseSession';
 
 
 class App extends Component{
@@ -17,7 +16,6 @@ class App extends Component{
     constructor(props){
         super(props);
         importDatabase();
-        loginUser("louis.deveze@edu.ece.fr", "framboise");
     }
 
     render(){

@@ -6,7 +6,7 @@
  */
 export function loginUser(mail, pswrd){
     var users = JSON.parse(localStorage.getItem("users"));
-    
+    var check = false;
     var array = users.filter(user=>{
         return user.email === mail && user.password === pswrd
     })
@@ -14,9 +14,11 @@ export function loginUser(mail, pswrd){
     if(array.length === 0){
         logoutUser();
     }else{
+        check = true;
         let logged = array[0];
         localStorage.setItem("session", JSON.stringify(logged));
     }
+    return check;
 }
 
 /**
