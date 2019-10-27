@@ -53,7 +53,7 @@ export default class WalletContent extends Component {
 
     /**
      * Used to set Deposit modal state to active
-     * Check that wallet value is a number > 0
+     * Check that wallet value is a number > 0, wallet has sufficient amount to transfer into card and card is selected
      */
     openDeposit() {
         this.setState({
@@ -204,7 +204,7 @@ export default class WalletContent extends Component {
                                         <MDBCardTitle >Select Deposit Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="Amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate} />
+                                        <MDBInput label="amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                         <MDBBtn outline color="default" size="lg" onClick={() => this.openDeposit()} required>Proceed</MDBBtn>
@@ -217,7 +217,7 @@ export default class WalletContent extends Component {
                                         <MDBCardTitle >Select Withdrawal Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="Amount" type="number" icon="euro-sign" value={this.state.withdrawal} onChange={this.onWithdrawalUpdate} />
+                                        <MDBInput label="amount" type="number" icon="euro-sign" value={this.state.withdrawal} onChange={this.onWithdrawalUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                         <MDBBtn outline color="default" size="lg"  onClick={() => this.openWithdrawal()} required>Proceed</MDBBtn>

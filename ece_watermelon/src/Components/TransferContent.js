@@ -6,7 +6,9 @@ import {
 import wallet from '../Pictures/wallet.png';
 import background from '../Pictures/backgroundmain.jpg'
 import './style.css';
-import { getWalletAmount, getSessionTransfers } from '../Database/DatabaseWallet.js';
+import { getWalletAmount } from '../Database/DatabaseWallet.js';
+import TransferModal from '../Components/Utils/TransferModal.js';
+
 
 class TransferContent extends React.Component {
 
@@ -18,7 +20,7 @@ class TransferContent extends React.Component {
             transferAmount: '',
             searchInput: '',
             userSearch: false,
-            userSelected: '',
+            userSelected: null,
             modalTransfer: false
         }
         this.isActive=this.isActive.bind(this);
@@ -41,6 +43,10 @@ class TransferContent extends React.Component {
         })
     }
 
+    /**
+     * Used to set Transfer modal state to active
+     * Check that wallet value is a number > 0
+     */
     openTransfer(){
         this.setState({
             transferAmount: parseFloat(this.state.transferAmount).toFixed(2)
@@ -52,9 +58,13 @@ class TransferContent extends React.Component {
         }
     }
 
+    /**
+     * Used to set Transfer modal state to normal
+     */
     closeTransfer() {
         this.setState({
             modalTransfer: false,
+            wallet: getWalletAmount()
         })
     }
 
@@ -73,8 +83,6 @@ class TransferContent extends React.Component {
             userSearch: true,
             searchedUsers: matchedSearched
         });
-        console.log(lowerCasedInput);
-        console.log(matchedSearched);
     }
 
     isActive(userID) {
@@ -89,6 +97,7 @@ class TransferContent extends React.Component {
         this.setState({
             userSelected: userID
         });
+        console.log("setselecteduser "+userID+ "userselected:"+this.state.userSelected);
     }
 
     usersList(){
@@ -157,10 +166,11 @@ class TransferContent extends React.Component {
                                             <MDBCardTitle className="white-text">Transfer Amount</MDBCardTitle>
                                         </MDBCardHeader>
                                         <MDBCardBody className="text-left">
-                                            <MDBInput label="Ex: 20.00" type="number" icon="euro-sign" value={this.state.transferAmount} onChange={this.handleAmountInput} />
+                                            <MDBInput className="white-text" label="Ex: 20.00" type="number" icon="euro-sign" value={this.state.transferAmount} onChange={this.handleAmountInput} required/>
                                         </MDBCardBody>
                                         <MDBCardFooter >
-                                            <MDBBtn gradient="near-moon" onClick={this.handleTransfer}>Proceed</MDBBtn>
+                                            <MDBBtn gradient="near-moon" onClick={() => this.openTransfer()}>Proceed</MDBBtn>
+                                            <TransferModal toggled={this.state.modalTransfer} close={() => this.closeTransfer()} transfer={this.state.transferAmount} selectedUser={this.state.userSelected}/>
                                         </MDBCardFooter>
                                     </MDBCard>
                                 </MDBCol>
