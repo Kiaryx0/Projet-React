@@ -164,7 +164,6 @@ export default class WalletContent extends Component {
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Bank Manager</h1>
                 </MDBContainer>
                 <MDBRow className="text-align-center" >
-
                     <MDBCol md="6" style={{ paddingLeft: '5%', paddingRight: '5%', marginBottom: '100px', width: '100%' }}>
                         <MDBCard className="text-center" >
                             <MDBCardHeader style={{ backgroundColor: "inherit" }}>
@@ -172,7 +171,7 @@ export default class WalletContent extends Component {
                             </MDBCardHeader>
                             <MDBCardBody>
                                 <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
-                                    Select a Card among all the cards associated to your Watermelon Account. You may use this card to make deposit to your bank account as well as withdrawals
+                                    Select a card among all the cards associated to your WaterMelon account. You may use this card to make deposit to your bank account as well as withdrawals.
                                 </MDBCardText>
 
                                 <MDBListGroup >
