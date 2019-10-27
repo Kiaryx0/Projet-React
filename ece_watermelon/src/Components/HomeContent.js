@@ -62,7 +62,7 @@ export default class HomeContent extends Component {
                         <p className="grey-text text-justify" style={{paddingLeft:"50px", paddingRight:"50px", paddingBottom:"20px"}}>
                             Send money to your friends or ask them to pay you using our App ! Transfer money from your wallet to your bank account or vice versa
                         </p>
-                        <Link to={this.setLinkWhenLoggedTo("/bank")} style={{ paddingBottom:"50px"}}>
+                        <Link to={this.setLinkWhenLoggedTo("/transfer")} style={{ paddingBottom:"50px"}}>
                             <MDBBtn outline color="default" size="lg" >
                                 Transfer Money
                             </MDBBtn></Link>
