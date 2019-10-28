@@ -28,7 +28,6 @@ export default class CardAdder extends Component {
     submit(event){
         event.preventDefault();
         if(this.state.last_4.length === 4){
-            console.log(this.state.last_4 +" " + this.state.brand + " "+ this.state.month + " "+ this.state.year);
             let cards = JSON.parse(localStorage.getItem("cards"));
             let identifier = cards.length+1;
             cards.push({id: identifier,

@@ -21,7 +21,8 @@ class TransferContent extends React.Component {
             searchInput: '',
             userSearch: false,
             userSelected: null,
-            modalTransfer: false
+            modalTransfer: false,
+            proceedTransfer: false
         }
         this.isActive=this.isActive.bind(this);
         this.setSelectedUser = this.setSelectedUser.bind(this);
@@ -31,12 +32,20 @@ class TransferContent extends React.Component {
         this.usersList=this.usersList.bind(this);
     }
 
+    /**
+     * retrieve user input in transfer card
+     * @param {user input} event 
+     */
     handleAmountInput(event) {
         this.setState({
             transferAmount: event.target.value
         })
     }
     
+    /**
+     * retrieve user input in search bar
+     * @param {user input} event 
+     */
     handleSearchInput(event){
         this.setState({
             searchInput: event.target.value
@@ -51,7 +60,7 @@ class TransferContent extends React.Component {
         this.setState({
             transferAmount: parseFloat(this.state.transferAmount).toFixed(2)
         });
-        if (parseFloat(this.state.transferAmount) > 0.0){
+        if (parseFloat(this.state.transferAmount) > 0.0 && this.state.userSelected !== null){
             this.setState({
                 modalTransfer: true
             });
@@ -68,6 +77,10 @@ class TransferContent extends React.Component {
         })
     }
 
+    /**
+     * Return an array composed of users that match user search
+     * @param {user submit a search} event 
+     */
     handleSearch(event) {
         event.preventDefault();
         const dbUsers = JSON.parse(localStorage.getItem("users"));
@@ -80,11 +93,16 @@ class TransferContent extends React.Component {
             }
         });
         this.setState({
+            
             userSearch: true,
             searchedUsers: matchedSearched
         });
     }
 
+    /**
+     * Return active css props if the card id item used in render is the one of the state
+     * @param {user id of the list item} userID 
+     */
     isActive(userID) {
         if (userID === this.state.userSelected) {
             return 'active';
@@ -93,13 +111,19 @@ class TransferContent extends React.Component {
         }
     }
 
+    /**
+     * Retrieve another user ID from user selection
+     * @param {user selection} userID 
+     */
     setSelectedUser(userID) {
         this.setState({
             userSelected: userID
         });
-        console.log("setselecteduser "+userID+ "userselected:"+this.state.userSelected);
     }
 
+    /**
+     * Display users that match user search
+     */
     usersList(){
         return this.state.searchedUsers.map((user) =>
         <MDBListGroupItem key={user.id} className={this.isActive(user.id)} onClick={() => this.setSelectedUser(user.id)}>

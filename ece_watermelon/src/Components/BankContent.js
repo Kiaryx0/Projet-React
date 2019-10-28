@@ -115,7 +115,7 @@ export default class WalletContent extends Component {
 
     /**
      * Return active css props if the card id item used in render is the one of the state
-     * @param {*card id of the list item} cardID 
+     * @param {card id of the list item} cardID 
      */
     isActive(cardID) {
         if (cardID === this.state.cardSelected) {

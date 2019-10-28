@@ -52,6 +52,9 @@ class RegisterForm extends React.Component {
     });
   }
 
+  /**
+   * retrieve users input in form
+   */
   handleInputChange(event) {
     const target = event.target;
     const name = target.name;
