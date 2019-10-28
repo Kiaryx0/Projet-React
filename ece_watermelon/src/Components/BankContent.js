@@ -53,7 +53,7 @@ export default class WalletContent extends Component {
 
     /**
      * Used to set Deposit modal state to active
-     * Check that wallet value is a number > 0
+     * Check that wallet value is a number > 0, wallet has sufficient amount to transfer into card and card is selected
      */
     openDeposit() {
         this.setState({
@@ -115,7 +115,7 @@ export default class WalletContent extends Component {
 
     /**
      * Return active css props if the card id item used in render is the one of the state
-     * @param {*card id of the list item} cardID 
+     * @param {card id of the list item} cardID 
      */
     isActive(cardID) {
         if (cardID === this.state.cardSelected) {
@@ -164,7 +164,6 @@ export default class WalletContent extends Component {
                     <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Bank Manager</h1>
                 </MDBContainer>
                 <MDBRow className="text-align-center" >
-
                     <MDBCol md="6" style={{ paddingLeft: '5%', paddingRight: '5%', marginBottom: '100px', width: '100%' }}>
                         <MDBCard className="text-center" >
                             <MDBCardHeader style={{ backgroundColor: "inherit" }}>
@@ -172,7 +171,7 @@ export default class WalletContent extends Component {
                             </MDBCardHeader>
                             <MDBCardBody>
                                 <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
-                                    Select a Card among all the cards associated to your Watermelon Account. You may use this card to make deposit to your bank account as well as withdrawals
+                                    Select a card among all the cards associated to your WaterMelon account. You may use this card to make deposit to your bank account as well as withdrawals.
                                 </MDBCardText>
 
                                 <MDBListGroup >
@@ -205,7 +204,7 @@ export default class WalletContent extends Component {
                                         <MDBCardTitle >Select Deposit Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="Amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate} />
+                                        <MDBInput label="amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                         <MDBBtn outline color="default" size="lg" onClick={() => this.openDeposit()} required>Proceed</MDBBtn>
@@ -218,7 +217,7 @@ export default class WalletContent extends Component {
                                         <MDBCardTitle >Select Withdrawal Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="Amount" type="number" icon="euro-sign" value={this.state.withdrawal} onChange={this.onWithdrawalUpdate} />
+                                        <MDBInput label="amount" type="number" icon="euro-sign" value={this.state.withdrawal} onChange={this.onWithdrawalUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                         <MDBBtn outline color="default" size="lg"  onClick={() => this.openWithdrawal()} required>Proceed</MDBBtn>

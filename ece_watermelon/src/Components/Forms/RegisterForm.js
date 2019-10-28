@@ -28,7 +28,6 @@ class RegisterForm extends React.Component {
       inputFirstName: "",
       inputLastName: "",
       inputCardType: "",
-      inputCardNumber: "",
       inputCVC: "",
       inputExpirationDate: "",
       redirect: false,
@@ -53,6 +52,9 @@ class RegisterForm extends React.Component {
     });
   }
 
+  /**
+   * retrieve users input in form
+   */
   handleInputChange(event) {
     const target = event.target;
     const name = target.name;
@@ -77,7 +79,7 @@ class RegisterForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if(this.state.inputCVC.length === 4 && this.state.inputCardNumber.length === 16 &&
+    if(this.state.inputCVC.length === 4 &&
       this.state.inputEmail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
       console.log(this.state.inputCVC + "" + this.state.inputExpirationDate + "" + this.state.inputLastName+ ""+this.state.inputCardType);
       let users = JSON.parse(localStorage.getItem("users"));
@@ -224,16 +226,6 @@ class RegisterForm extends React.Component {
                               onClick={this.handleRadioBtn("american_express")}
                             />
                           </div>
-                          <MDBInput
-                            required
-                            name="inputCardNumber"
-                            className="white-text"
-                            label="Your card number"
-                            value={this.state.inputCardNumber}
-                            type="number"
-                            icon="credit-card"
-                            onChange={this.handleInputChange}
-                          />
                           <MDBInput
                             required
                             name="inputExpirationDate"

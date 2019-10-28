@@ -41,7 +41,7 @@ export function getWalletAmount(){
  */
 export function makeDeposit(money, card){
     
-    // Credit wallet
+    // Credit card
     let wallets = JSON.parse(localStorage.getItem("wallets"));
     let current = null;
     for(var i= 0; i<wallets.length; i++){
@@ -52,7 +52,7 @@ export function makeDeposit(money, card){
     }
     localStorage.setItem("wallets", JSON.stringify(wallets));
 
-    // Save Payout
+    // Save in payout history
     let payouts = JSON.parse(localStorage.getItem("payouts"));
     payouts.push({   id: payouts.length+1, wallet_id: current.id, amount: money })
     localStorage.setItem("payouts", JSON.stringify(payouts));
@@ -76,10 +76,30 @@ export function makeWithdrawal(money, card){
     }
     localStorage.setItem("wallets", JSON.stringify(wallets));
 
-    // Save Payout
+    // Save in payin history
     let payins = JSON.parse(localStorage.getItem("payins"));
     payins.push({   id: payins.length+1, wallet_id: current.id, amount: money })
     localStorage.setItem("payins", JSON.stringify(payins));
+}
+
+export function makeTransfer(money, myID, otherID){
+
+    // Transfer amount from one wallet to another
+    let wallets = JSON.parse(localStorage.getItem("wallets"));
+    for(let i=0; i<wallets.length; i++){
+        if(wallets[i].user_id === myID){
+            wallets[i].balance -= money;
+        }
+        else if(wallets[i].user_id === otherID){
+            wallets[i].balance +=money;
+        }
+    }
+    localStorage.setItem("wallets", JSON.stringify(wallets));
+
+    // Save in transfer history
+    let transfers = JSON.parse(localStorage.getItem("transfers"));
+    transfers.push({ id: transfers.length+1, debited_wallet_id: myID, credited_wallet_id: otherID, amount: money});
+    localStorage.setItem("transfers", JSON.stringify(transfers));
 }
 
 export function getSessionDeposits(){

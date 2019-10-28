@@ -19,7 +19,7 @@ export default class DepositModal extends Component {
     proceed() {
         let money = this.props.deposit*100;
         let card = getCard(this.props.selectedID);
-        makeDeposit(money, card)
+        makeDeposit(money, card);
         this.props.close();
     };
 
@@ -29,7 +29,7 @@ export default class DepositModal extends Component {
             var cards = JSON.parse(localStorage.getItem("cards"));
             var array = cards.filter(card => {
                 return card.id === this.props.selectedID
-            })
+            });
 
             let card = null;
             if (array.length === 1) {
@@ -52,7 +52,6 @@ export default class DepositModal extends Component {
                 <MDBModalHeader toggle={() => this.props.close()}>Make a Deposit</MDBModalHeader>
                 <MDBModalBody>
                     {this.showInfos()}
-
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={() => this.props.close()}>Close</MDBBtn>
