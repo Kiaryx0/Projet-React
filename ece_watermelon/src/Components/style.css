@@ -6,13 +6,8 @@
 .list-group-item.active, .list-group-item.active:hover {
   background-color: #777777  !important;
   border-color: #777777  !important;
-  }
+}
 
-#joinus .list-group-item.active, .list-group-item.active:hover {
-  background-color:#777777  !important;
-  border-color: #777777  !important;
-  }
-#whyptcl .list-group-item.active, .list-group-item.active:hover {
-  background-color:#777777  !important;
-  border-color: #777777  !important;
-  }
+.euro-sign{
+  color: white;
+}

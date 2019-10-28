@@ -21,26 +21,31 @@ export default class CardAdder extends Component {
         this.updateMonth = this.updateMonth.bind(this);
         this.updateYear = this.updateYear.bind(this);
         this.submit = this.submit.bind(this);
-        
+
     }
 
     // Validate form and update the card
-    submit(event){
+    submit(event) {
         event.preventDefault();
-        if(this.state.last_4.length === 4){
+        if (this.state.last_4.length === 4) {
             let cards = JSON.parse(localStorage.getItem("cards"));
-            let identifier = cards.length+1;
-            cards.push({id: identifier,
-                        last_4: this.state.last_4, 
-                        brand: this.state.brand, 
-                        expired_at: this.state.year + "-" + this.state.month + "-01", 
-                        user_id: getSessionUser().id});
-            localStorage.setItem("cards", JSON.stringify(cards));
-            this.close();
+            if (cards.length >=  1) {
+                let identifier = cards[cards.length - 1].id+1;
+                cards.push({
+                    id: identifier,
+                    last_4: this.state.last_4,
+                    brand: this.state.brand,
+                    expired_at: this.state.year + "-" + this.state.month + "-01",
+                    user_id: getSessionUser().id
+                });
+                localStorage.setItem("cards", JSON.stringify(cards));
+                this.close();
+            }
         }
+
     };
 
-    close(){
+    close() {
         this.setState({
             last_4: "0000",
             brand: "jcb",
@@ -51,28 +56,28 @@ export default class CardAdder extends Component {
     }
 
     updateLast4(event) {
-        this.setState({ last_4:  event.target.value});
+        this.setState({ last_4: event.target.value });
     };
 
-    updateBrand(event){
-        this.setState({ brand:  event.target.value});
+    updateBrand(event) {
+        this.setState({ brand: event.target.value });
     };
 
-    updateMonth(event){
-        this.setState({ month:  event.target.value});
+    updateMonth(event) {
+        this.setState({ month: event.target.value });
     }
 
-    updateYear(event){
-        this.setState({ year:  event.target.value});
+    updateYear(event) {
+        this.setState({ year: event.target.value });
     }
 
     generateMonthOption() {
         var lis = [];
         for (var i = 1; i < 13; i++) {
-            if(i<10){
-                lis.push(<option value={"0"+i} key={i}>{i}</option>);
+            if (i < 10) {
+                lis.push(<option value={"0" + i} key={i}>{i}</option>);
             }
-            else{
+            else {
                 lis.push(<option value={i} key={i}>{i}</option>);
             }
         }
@@ -89,13 +94,13 @@ export default class CardAdder extends Component {
 
     render() {
         return (
-            
-            <form className="needs-validation" onSubmit={this.submit}>
-            <MDBModal centered isOpen={this.props.toggled} toggle={() => this.close()}>
-                <MDBModalHeader toggle={() => this.close()}>Add a new Card</MDBModalHeader>
-                <MDBModalBody>
 
-                        <MDBInput value={this.state.last_4} onChange={this.updateLast4} type="number" className="form-control" label="Last Four numbers of your card" required/>
+            <form className="needs-validation" onSubmit={this.submit}>
+                <MDBModal centered isOpen={this.props.toggled} toggle={() => this.close()}>
+                    <MDBModalHeader toggle={() => this.close()}>Add a new Card</MDBModalHeader>
+                    <MDBModalBody>
+
+                        <MDBInput value={this.state.last_4} onChange={this.updateLast4} type="number" className="form-control" label="Last Four numbers of your card" required />
                         <div style={{ marginBottom: '15px' }}>
                             <p className="dark-grey-text" style={{ fontSize: '14px' }}>Card Brand</p>
                             <select className="browser-default custom-select" label="Card Brand" onChange={this.updateBrand}>
@@ -106,7 +111,7 @@ export default class CardAdder extends Component {
                                 <option value='union_pay'>Union Pay</option>
                             </select>
                         </div>
-                        
+
                         <p className="dark-grey-text" style={{ fontSize: '14px' }}>Expiration Date</p>
 
                         <div style={{ width: '45%', display: 'inline-block' }}>
@@ -120,13 +125,13 @@ export default class CardAdder extends Component {
                                 {this.generateYearOption()}
                             </select>
                         </div>
-                    
-                </MDBModalBody>
-                <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={() => this.close()}>Close</MDBBtn>
-                    <MDBBtn color="primary" type="submit">Proceed</MDBBtn>
-                </MDBModalFooter>
-            </MDBModal>
+
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                        <MDBBtn color="secondary" onClick={() => this.close()}>Close</MDBBtn>
+                        <MDBBtn color="primary" type="submit">Proceed</MDBBtn>
+                    </MDBModalFooter>
+                </MDBModal>
             </form>
         );
     }

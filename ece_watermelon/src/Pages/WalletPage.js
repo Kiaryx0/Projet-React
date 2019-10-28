@@ -6,7 +6,7 @@ import WalletContent from '../Components/WalletContent';
 const WalletPage = () => (
 
 
-    <div style={{position:"relative"}}>
+    <div style={{position:"relative", minWidth: "100vw"}}>
         <header><NavBar /></header>
         <div><WalletContent/></div>
         <Footer/>

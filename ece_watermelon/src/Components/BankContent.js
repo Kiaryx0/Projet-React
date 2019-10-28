@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
-    MDBCardTitle, MDBCardText, MDBContainer, MDBInput
+    MDBCardTitle, MDBCardText, MDBContainer, MDBInput, MDBView, MDBMask
 } from "mdbreact";
 import wallet from '../Pictures/wallet.png';
 import './style.css'
@@ -10,6 +10,8 @@ import getSessionCards, { getCardPictureSrc } from "../Database/DatabaseCard";
 import CardAdder from "./Utils/CardAdder"
 import DepositModal from "./Utils/DepositModal"
 import WithdrawalModal from "./Utils/WithdrawalModal";
+import background from '../Pictures/backgroundmain.jpg'
+
 
 export default class WalletContent extends Component {
 
@@ -154,23 +156,25 @@ export default class WalletContent extends Component {
 
     render() {
         return (
+            <MDBView>
+                <img src={background} alt="" style={{ backgroundRepeat: "cover", width:"100vw" }} />
+                <MDBMask overlay="black-light">
             <div>
-
                 <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() => this.closeAddingCard()} />
                 <DepositModal toggled={this.state.modalDeposit} close={() => this.closeDeposit()} deposit={this.state.deposit} selectedID={this.state.cardSelected} />
                 <WithdrawalModal toggled={this.state.modalWithdrawal} close={() => this.closeWithdrawal()} withdrawal={this.state.withdrawal} selectedID={this.state.cardSelected} />
 
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
-                    <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Bank Manager</h1>
+                    <h1 className="text-center white-text" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Bank Manager</h1>
                 </MDBContainer>
                 <MDBRow className="text-align-center" >
                     <MDBCol md="6" style={{ paddingLeft: '5%', paddingRight: '5%', marginBottom: '100px', width: '100%' }}>
-                        <MDBCard className="text-center" >
+                        <MDBCard className="text-center" style={{ backgroundColor:"rgba(125,125,140,0.5)"}}>
                             <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                <MDBCardTitle style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
+                                <MDBCardTitle className="white-text" style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
                             </MDBCardHeader>
                             <MDBCardBody>
-                                <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
+                                <MDBCardText className="white-text text-justify" style={{ fontSize: '18px' }}>
                                     Select a card among all the cards associated to your WaterMelon account. You may use this card to make deposit to your bank account as well as withdrawals.
                                 </MDBCardText>
 
@@ -180,7 +184,7 @@ export default class WalletContent extends Component {
                             </MDBCardBody>
                             <MDBCardFooter style={{ backgroundColor: "inherit" }}>
 
-                                <MDBBtn outline color="dark" size="lg" onClick={() => this.openAddingCard()} >Add New Card</MDBBtn>
+                                <MDBBtn gradient="near-moon" onClick={() => this.openAddingCard()} >Add New Card</MDBBtn>
                             </MDBCardFooter>
                         </MDBCard>
                     </MDBCol>
@@ -193,34 +197,34 @@ export default class WalletContent extends Component {
                                 <img src={wallet} alt="" style={{ width: '100%', maxWidth: '250px', minWidth: '100px', height: 'auto' }} className="image-fluid"></img>
                             </MDBCol>
                             <MDBCol md="6" middle className="text-center">
-                                <h1 style={{ fontWeight: 'bold', fontSize: '50px', whiteSpace: 'nowrap' }}>Cash flow</h1>
-                                <h1 style={{ fontSize: '60px' }}>{this.state.wallet}€</h1>
+                                <h1 className="white-text" style={{ fontWeight: 'bold', fontSize: '50px', whiteSpace: 'nowrap' }}>Cash flow</h1>
+                                <h1 className="white-text" style={{ fontSize: '60px' }}>{this.state.wallet}€</h1>
                             </MDBCol>
                         </MDBRow>
                         <MDBRow middle style={{ paddingTop: '50px' }}>
                             <MDBCol md="6" className="text-center" middle>
-                                <MDBCard className="text-center" style={{ marginLeft: '20px', marginRight: '20px' }}>
+                                <MDBCard className="text-center" style={{ marginLeft: '20px', marginRight: '20px', backgroundColor:"rgba(125,125,140,0.5)" }}>
                                     <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                        <MDBCardTitle >Select Deposit Amount</MDBCardTitle>
+                                        <MDBCardTitle className="white-text">Select Deposit Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate} />
+                                        <MDBInput className="white-text" label="amount" type="number" icon="euro-sign" value={this.state.deposit} onChange={this.onDepositUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
-                                        <MDBBtn outline color="default" size="lg" onClick={() => this.openDeposit()} required>Proceed</MDBBtn>
+                                        <MDBBtn gradient="near-moon" onClick={() => this.openDeposit()} required>Proceed</MDBBtn>
                                     </MDBCardFooter>
                                 </MDBCard>
                             </MDBCol>
                             <MDBCol md="6" className="text-center" middle>
-                                <MDBCard className="text-center" style={{ marginLeft: '20px', marginRight: '20px' }}>
+                                <MDBCard className="text-center" style={{ marginLeft: '20px', marginRight: '20px', backgroundColor:"rgba(125,125,140,0.5)" }}>
                                     <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                        <MDBCardTitle >Select Withdrawal Amount</MDBCardTitle>
+                                        <MDBCardTitle className="white-text">Select Withdrawal Amount</MDBCardTitle>
                                     </MDBCardHeader>
                                     <MDBCardBody className="text-left">
-                                        <MDBInput label="amount" type="number" icon="euro-sign" value={this.state.withdrawal} onChange={this.onWithdrawalUpdate} />
+                                        <MDBInput className="white-text" label="amount" type="number" icon="euro-sign" value={this.state.withdrawal} onChange={this.onWithdrawalUpdate} />
                                     </MDBCardBody>
                                     <MDBCardFooter style={{ backgroundColor: "inherit" }}>
-                                        <MDBBtn outline color="default" size="lg"  onClick={() => this.openWithdrawal()} required>Proceed</MDBBtn>
+                                        <MDBBtn gradient="near-moon" onClick={() => this.openWithdrawal()} required>Proceed</MDBBtn>
                                     </MDBCardFooter>
                                 </MDBCard>
                             </MDBCol>
@@ -228,6 +232,8 @@ export default class WalletContent extends Component {
                     </MDBCol>
                 </MDBRow>
             </div>
+            </MDBMask>
+            </MDBView>
         );
     }
 }

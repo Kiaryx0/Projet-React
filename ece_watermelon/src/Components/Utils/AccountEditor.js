@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import loginUser, { getSessionUser } from "../../Database/DatabaseSession";
 import {
     MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
-    MDBCardTitle,
-    MDBInput
+    MDBCardTitle, MDBAlert, MDBInput
 } from "mdbreact";
 
 export default class AccountEditor extends Component {
@@ -17,7 +16,8 @@ export default class AccountEditor extends Component {
             last_name: user.last_name,
             email: user.email,
             password: user.password,
-            show_password: false
+            show_password: false,
+            profileUpdated: false
         }
 
         this.onFirstNameUpdate = this.onFirstNameUpdate.bind(this);
@@ -54,7 +54,8 @@ export default class AccountEditor extends Component {
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
-            password: user.password
+            password: user.password,
+            profileUpdated: true
         });
 
     }
@@ -90,8 +91,8 @@ export default class AccountEditor extends Component {
     render() {
         return (
             <form onSubmit={this.submit}>
+                {this.state.profileUpdated && <MDBAlert color="success" dismiss>Profile has been updated!</MDBAlert>}
                 <MDBCard className="text-center" style={{ backgroundColor: "rgba(125,125,140,0.5)" }}>
-
                     <MDBCardHeader style={{ backgroundColor: "inherit" }}>
                         <MDBCardTitle className="white-text" style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Account Informations</MDBCardTitle>
                     </MDBCardHeader>
