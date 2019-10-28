@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody, MDBCardHeader, MDBCardFooter,
-    MDBCardTitle, MDBContainer
+    MDBCardTitle, MDBContainer, MDBView, MDBMask
 } from "mdbreact";
 import './style.css';
 import getSessionCards, { getCardPictureSrc } from "../Database/DatabaseCard";
@@ -9,6 +9,7 @@ import CardAdder from "./Utils/CardAdder";
 import CardDeleter from "./Utils/CardDeleter";
 import CardEditor from "./Utils/CardEditor";
 import AccountEditor from "./Utils/AccountEditor";
+import background from '../Pictures/backgroundmain.jpg'
 
 export default class AccountContent extends Component {
 
@@ -127,6 +128,7 @@ export default class AccountContent extends Component {
      * Display the card list of the current user
      */
     cardList() {
+        if(this.state.cards!==null){
         return this.state.cards.map((card) =>
             <MDBListGroupItem key={card.id}  className={this.isActive(card.id)} onClick={() => this.setSelectedCard(card.id)} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
                 <div className="justify-content-between">
@@ -137,27 +139,29 @@ export default class AccountContent extends Component {
                     </div>
                 </div>
             </MDBListGroupItem>
-        )
+        );};
     }
 
     render() {
         return (
-
+            <MDBView>
+                <img src={background} alt="" style={{ backgroundRepeat: "cover", width:"100vw" }} />
+                <MDBMask overlay="black-light">
             <div>
                 <CardAdder toggled={this.state.modalAddCard} closeAddingCard={() =>this.closeAddingCard()}/> 
                 <CardDeleter  toggled={this.state.modalDeleteCard} selectedID={this.state.cardSelected} closeDeletingCard={() =>this.closeDeletingCard()}/>
                 <CardEditor  toggled={this.state.modalEditCard} selectedID={this.state.cardSelected} closeEditingCard={() =>this.closeEditingCard()}/>
                 <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
-                    <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Account Manager</h1>
+                    <h1 className="text-center white-text" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Account Manager</h1>
                 </MDBContainer>
                 <MDBRow className="text-align-center" >
 
 
                     <MDBCol md="6" style={{ paddingLeft: '5%', paddingRight: '5%', marginBottom: '150px', width: '100%' }}>
-                        <MDBCard className="text-center" >
+                        <MDBCard className="text-center" style={{ backgroundColor: "rgba(125,125,140,0.5)" }}>
 
                             <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                <MDBCardTitle style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
+                                <MDBCardTitle className="white-text" style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Card Manager</MDBCardTitle>
                             </MDBCardHeader>
                             <MDBCardBody style={{ margin: '50px' }}>
                                 <MDBListGroup >
@@ -167,18 +171,16 @@ export default class AccountContent extends Component {
                                 <MDBCardFooter style={{ backgroundColor: "inherit" }}>
                                     <MDBRow middle>
                                         <MDBCol md="4">
-                                            <MDBBtn outline color="success" size="lg" onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
+                                            <MDBBtn color="success" onClick={()=>this.showAddingCard()}>Add Card</MDBBtn>
                                         </MDBCol>
                                         <MDBCol md="4">
-                                            <MDBBtn outline color="warning" size="lg" onClick={()=>this.showEditingCard()}>Edit Card</MDBBtn>
+                                            <MDBBtn color="warning" onClick={()=>this.showEditingCard()}>Edit Card</MDBBtn>
                                         </MDBCol>
                                         <MDBCol md="4">
-                                            <MDBBtn outline color="danger" size="lg" onClick={()=>this.showDeletingCard()}>Delete Card</MDBBtn>
+                                            <MDBBtn color="danger" onClick={()=>this.showDeletingCard()}>Delete Card</MDBBtn>
                                         </MDBCol>
                                     </MDBRow>
                                 </MDBCardFooter>
-
-                            
                         </MDBCard>
                     </MDBCol>
 
@@ -188,6 +190,8 @@ export default class AccountContent extends Component {
 
                 </MDBRow>
             </div>
+            </MDBMask>
+            </MDBView>
         );
     }
 }

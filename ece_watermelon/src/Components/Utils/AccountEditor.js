@@ -90,40 +90,38 @@ export default class AccountEditor extends Component {
     render() {
         return (
             <form onSubmit={this.submit}>
-                <MDBCard className="text-center" >
+                <MDBCard className="text-center" style={{ backgroundColor: "rgba(125,125,140,0.5)" }}>
 
                     <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                        <MDBCardTitle style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Account Informations</MDBCardTitle>
+                        <MDBCardTitle className="white-text" style={{ fontSize: '36px', marginTop: '20px', marginBottom: '20px' }}>My Account Informations</MDBCardTitle>
                     </MDBCardHeader>
                     <MDBCardBody style={{ margin: '50px' }}>
                         <MDBRow>
                             <MDBCol md="6">
-                                <h4 style={{ textAlign: "left" }}>First Name :</h4>
+                                <h4 className="white-text" style={{ textAlign: "left" }}>First Name :</h4>
                                 <div style={{ textAlign: "left" }}>
-                                    <MDBInput label="firstName" type="text" icon="pen" value={this.state.first_name} onChange={this.onFirstNameUpdate} />
+                                    <MDBInput className="white-text" label="First Name" type="text" icon="pen" value={this.state.first_name} onChange={this.onFirstNameUpdate} />
                                 </div>
                             </MDBCol>
                             <MDBCol md="6">
-                                <h4 style={{ textAlign: "left" }}>Last Name :</h4>
+                                <h4 className="white-text" style={{ textAlign: "left" }}>Last Name :</h4>
                                 <div style={{ textAlign: "left" }}>
-                                    <MDBInput label="firstName" type="text" icon="pen" value={this.state.last_name} onChange={this.onLastNameUpdate} />
+                                    <MDBInput className="white-text" label="Last Name" type="text" icon="pen" value={this.state.last_name} onChange={this.onLastNameUpdate} />
                                 </div>
                             </MDBCol>
                         </MDBRow>
-                        <h4 style={{ textAlign: "left" }}>Email:</h4>
+                        <h4 className="white-text" style={{ textAlign: "left" }}>Email:</h4>
                         <div style={{ textAlign: "left" }}>
-                            <MDBInput label="firstName" type="email" icon="pen" value={this.state.email} onChange={this.onEmailUpdate} />
+                            <MDBInput className="white-text" label="Email" type="email" icon="pen" value={this.state.email} onChange={this.onEmailUpdate} />
                         </div>
-
-                        
-                        <h4 style={{ textAlign: "left" }}>Password</h4>
+                        <h4 className="white-text" style={{ textAlign: "left" }}>Password</h4>
                         <MDBRow>
                             <MDBCol md="7">
                                 <div style={{ textAlign: "left" }}>
-                                    <MDBInput label="firstName" type={this.showPassword()} icon="pen" value={this.state.password} onChange={this.onPasswordUpdate} />
+                                    <MDBInput className="white-text" label="Password" type={this.showPassword()} icon="pen" value={this.state.password} onChange={this.onPasswordUpdate} />
                                 </div>
                             </MDBCol>
-                            <MDBCol className="d-flex align-items-center">
+                            <MDBCol className="d-flex align-items-center white-text">
                                 <p>Show password?</p>
                             </MDBCol>
                             <MDBCol className="d-flex align-items center">
@@ -135,7 +133,7 @@ export default class AccountEditor extends Component {
                     <MDBCardFooter style={{ backgroundColor: "inherit" }} >
                         <MDBRow middle>
                             <MDBCol md="12" >
-                                <MDBBtn outline color="black" size="lg" type="submit">Save Changes</MDBBtn>
+                                <MDBBtn gradient="near-moon" type="submit">Save Changes</MDBBtn>
                             </MDBCol>
                         </MDBRow>
                     </MDBCardFooter>

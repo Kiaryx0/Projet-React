@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import {
     MDBRow, MDBCol, MDBListGroup, MDBBtn, MDBListGroupItem, MDBCard, MDBCardBody,
-    MDBCardTitle, MDBCardText, MDBContainer, MDBCardHeader
+    MDBCardTitle, MDBCardText, MDBContainer, MDBCardHeader, MDBView, MDBMask
 } from "mdbreact";
+import background from '../Pictures/backgroundmain.jpg'
 import wallet from '../Pictures/wallet.png';
 import deposit from '../Pictures/deposit.png';
 import payment from '../Pictures/payment.png';
 import withdrawal from '../Pictures/withdrawal.png';
 import card from '../Pictures/card.png';
 import { Link } from 'react-router-dom';
-import getSessionWallet, { getWalletAmount,getUserWithWallet, getSessionWithdrawals, getSessionTransfers, getSessionDeposits } from "../Database/DatabaseWallet";
+import getSessionWallet, { getWalletAmount, getUserWithWallet, getSessionWithdrawals, getSessionTransfers, getSessionDeposits } from "../Database/DatabaseWallet";
 import "./style.css"
 
 
@@ -62,9 +63,9 @@ export default class WalletContent extends Component {
      */
     buttonSize(button) {
         if (button === this.state.history) {
-            return { fontSize: "28px", display: "inline-block", margin: "10px", cursor:"pointer" };
+            return { fontSize: "28px", display: "inline-block", margin: "10px", cursor: "pointer" };
         } else {
-            return { fontSize: "22px", display: "inline-block", margin: "10px", cursor:"pointer" };
+            return { fontSize: "22px", display: "inline-block", margin: "10px", cursor: "pointer" };
         }
     }
 
@@ -106,7 +107,7 @@ export default class WalletContent extends Component {
                             </div>
                         </MDBListGroupItem>
                     );
-                }else{
+                } else {
                     return (
                         <MDBListGroupItem key={transfer.id} style={{ paddingTop: '25px', paddingBottom: '25px' }}>
                             <div className="d-flex w-100 justify-content-between">
@@ -126,99 +127,104 @@ export default class WalletContent extends Component {
 
     render() {
         return (
-            <div>
-                <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
-                    <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Wallet Manager</h1>
-                </MDBContainer>
-                <MDBRow className="text-align-center" >
-                    <MDBCol md="5" style={{ paddingLeft: '5%', paddingRight: '5%', paddingBottom: '100px', width: '100%' }}>
-                        <MDBCard className="text-center" style={{ maxWidth: "90%" }}>
-                            <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                <MDBCardTitle style={{ fontSize: '36px' }}>Wallet Activity</MDBCardTitle>
-                                <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
-                                    Keep track here of the last activities on your wallet. This includes payments to other users of WaterMelon, and Transfers From or To your Bank account.
+            <MDBView>
+                <img src={background} alt="" style={{ backgroundRepeat: "cover", width: "100vw" }} />
+                <MDBMask overlay="black-light">
+                    <div>
+                        <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
+                            <h1 className="text-center" style={{ fontSize: '40px', fontWeight: 'bold' }}>My Wallet Manager</h1>
+                        </MDBContainer>
+                        <MDBRow className="text-align-center" >
+                            <MDBCol md="5" style={{ paddingLeft: '5%', paddingRight: '5%', paddingBottom: '100px', width: '100%' }}>
+                                <MDBCard className="text-center" style={{ maxWidth: "90%" }}>
+                                    <MDBCardHeader style={{ backgroundColor: "inherit" }}>
+                                        <MDBCardTitle style={{ fontSize: '36px' }}>Wallet Activity</MDBCardTitle>
+                                        <MDBCardText className=" text-justify" style={{ fontSize: '18px' }}>
+                                            Keep track here of the last activities on your wallet. This includes payments to other users of WaterMelon, and Transfers From or To your Bank account.
                                 </MDBCardText>
 
-                            </MDBCardHeader>
-                            <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                <h2 color="dark" style={this.buttonSize("deposit")} onClick={() => this.switchToDeposit()}>Deposits</h2>
-                                <h2 color="dark" style={this.buttonSize("withdrawal")} onClick={() => this.switchToWithdrawal()}>Withdrawals</h2>
-                                <h2 color="dark" style={this.buttonSize("transfer")} onClick={() => this.switchToTransfer()}>Transfers</h2>
-                            </MDBCardHeader>
-                            <MDBCardBody>
-                                <MDBListGroup>
-                                    {this.content()}
-                                </MDBListGroup>
-                            </MDBCardBody>
-                        </MDBCard>
+                                    </MDBCardHeader>
+                                    <MDBCardHeader style={{ backgroundColor: "inherit" }}>
+                                        <h2 color="dark" style={this.buttonSize("deposit")} onClick={() => this.switchToDeposit()}>Deposits</h2>
+                                        <h2 color="dark" style={this.buttonSize("withdrawal")} onClick={() => this.switchToWithdrawal()}>Withdrawals</h2>
+                                        <h2 color="dark" style={this.buttonSize("transfer")} onClick={() => this.switchToTransfer()}>Transfers</h2>
+                                    </MDBCardHeader>
+                                    <MDBCardBody>
+                                        <MDBListGroup>
+                                            {this.content()}
+                                        </MDBListGroup>
+                                    </MDBCardBody>
+                                </MDBCard>
 
 
-                    </MDBCol>
-                    <MDBCol md="1" className="text-center">
-                    </MDBCol>
-                    <MDBCol md="6" style={{ paddingRight: '100px', paddingLeft: '40px', paddingBottom: '100px' }}>
-                        <MDBRow middle>
+                            </MDBCol>
+                            <MDBCol md="1" className="text-center">
+                            </MDBCol>
+                            <MDBCol md="6" style={{ paddingRight: '100px', paddingLeft: '40px', paddingBottom: '100px' }}>
+                                <MDBRow middle>
 
-                            <MDBCol md="6" className="text-center">
-                                <img src={wallet} alt="" style={{ width: '100%', maxWidth: '250px', minWidth: '100px', height: 'auto' }} className="image-fluid"></img>
-                            </MDBCol>
-                            <MDBCol md="6" middle className="text-center">
-                                <h1 style={{ fontWeight: 'bold', fontSize: '50px', whiteSpace: 'nowrap' }}>Cash flow</h1>
-                                <h1 style={{ fontSize: '60px' }}>{getWalletAmount()}€</h1>
-                            </MDBCol>
-                        </MDBRow>
-                        <MDBRow middle style={{ paddingTop: '50px' }}>
-                            <MDBCol md="4" className="text-center">
-                                <img src={deposit} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
-                            </MDBCol>
-                            <MDBCol md="8" className="text-center" middle>
-                                <Link className="text-center" to="/bank">
-                                    <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
-                                        Make a Bank Deposit
+                                    <MDBCol md="6" className="text-center">
+                                        <img src={wallet} alt="" style={{ width: '100%', maxWidth: '250px', minWidth: '100px', height: 'auto' }} className="image-fluid"></img>
+                                    </MDBCol>
+                                    <MDBCol md="6" middle className="text-center">
+                                        <h1 style={{ fontWeight: 'bold', fontSize: '50px', whiteSpace: 'nowrap' }}>Cash flow</h1>
+                                        <h1 style={{ fontSize: '60px' }}>{getWalletAmount()}€</h1>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow middle style={{ paddingTop: '50px' }}>
+                                    <MDBCol md="4" className="text-center">
+                                        <img src={deposit} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
+                                    </MDBCol>
+                                    <MDBCol md="8" className="text-center" middle>
+                                        <Link className="text-center" to="/bank">
+                                            <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
+                                                Make a Bank Deposit
                                     </MDBBtn>
-                                </Link>
-                            </MDBCol>
-                        </MDBRow>
-                        <MDBRow middle style={{ paddingTop: '20px' }}>
-                            <MDBCol md="4" className="text-center">
-                                <img src={withdrawal} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
-                            </MDBCol>
-                            <MDBCol md="8" className="text-center" middle>
-                                <Link className="text-center" to="/bank">
-                                    <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
-                                        Make a Bank Withdrawal
+                                        </Link>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow middle style={{ paddingTop: '20px' }}>
+                                    <MDBCol md="4" className="text-center">
+                                        <img src={withdrawal} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
+                                    </MDBCol>
+                                    <MDBCol md="8" className="text-center" middle>
+                                        <Link className="text-center" to="/bank">
+                                            <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
+                                                Make a Bank Withdrawal
                                 </MDBBtn>
-                                </Link>
-                            </MDBCol>
-                        </MDBRow>
-                        <MDBRow middle style={{ paddingTop: '20px' }}>
-                            <MDBCol md="4" className="text-center">
-                                <img src={payment} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
-                            </MDBCol>
-                            <MDBCol md="8" className="text-center" middle>
-                                <Link className="text-center" to="/transfer">
-                                    <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
-                                        Make a Payment
+                                        </Link>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow middle style={{ paddingTop: '20px' }}>
+                                    <MDBCol md="4" className="text-center">
+                                        <img src={payment} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
+                                    </MDBCol>
+                                    <MDBCol md="8" className="text-center" middle>
+                                        <Link className="text-center" to="/transfer">
+                                            <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
+                                                Make a Payment
                                 </MDBBtn>
-                                </Link>
-                            </MDBCol>
-                        </MDBRow>
-                        <MDBRow middle style={{ paddingTop: '20px' }}>
-                            <MDBCol md="4" className="text-center">
-                                <img src={card} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
-                            </MDBCol>
-                            <MDBCol md="8" className="text-center" middle>
-                                <Link className="text-center" to="/account">
-                                    <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
-                                        Manage Cards
+                                        </Link>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow middle style={{ paddingTop: '20px' }}>
+                                    <MDBCol md="4" className="text-center">
+                                        <img src={card} alt="" style={{ width: '100%', maxWidth: '120px' }}></img>
+                                    </MDBCol>
+                                    <MDBCol md="8" className="text-center" middle>
+                                        <Link className="text-center" to="/account">
+                                            <MDBBtn outline color="dark" size="lg" style={{ width: '100%', fontSize: '20px' }}>
+                                                Manage Cards
                                 </MDBBtn>
-                                </Link>
-                            </MDBCol>
-                        </MDBRow>
+                                        </Link>
+                                    </MDBCol>
+                                </MDBRow>
 
-                    </MDBCol>
-                </MDBRow>
-            </div>
+                            </MDBCol>
+                        </MDBRow>
+                    </div>
+                </MDBMask>
+            </MDBView>
         );
     }
 }

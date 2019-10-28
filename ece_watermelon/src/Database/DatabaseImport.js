@@ -23,6 +23,8 @@ export function importDatabase(){
 
     var transferData = JSON.stringify(transfers);
     localStorage.setItem("transfers", transferData);
+
+    // localStorage.setItem("session", null);
 }
 
 
