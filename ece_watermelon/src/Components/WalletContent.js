@@ -62,9 +62,9 @@ export default class WalletContent extends Component {
      */
     buttonSize(button) {
         if (button === this.state.history) {
-            return { fontSize: "28px", display: "inline-block", margin: "10px" };
+            return { fontSize: "28px", display: "inline-block", margin: "10px", cursor:"pointer" };
         } else {
-            return { fontSize: "22px", display: "inline-block", margin: "10px" };
+            return { fontSize: "22px", display: "inline-block", margin: "10px", cursor:"pointer" };
         }
     }
 
@@ -141,9 +141,9 @@ export default class WalletContent extends Component {
 
                             </MDBCardHeader>
                             <MDBCardHeader style={{ backgroundColor: "inherit" }}>
-                                <h2 color="dark" style={(this.buttonSize("deposit"), {cursor:"pointer"})} onClick={() => this.switchToDeposit()}>Deposits</h2>
-                                <h2 color="dark" style={(this.buttonSize("withdrawal"), {cursor:"pointer"})} onClick={() => this.switchToWithdrawal()}>Withdrawals</h2>
-                                <h2 color="dark" style={(this.buttonSize("transfer"), {cursor:"pointer"})} onClick={() => this.switchToTransfer()}>Transfers</h2>
+                                <h2 color="dark" style={this.buttonSize("deposit")} onClick={() => this.switchToDeposit()}>Deposits</h2>
+                                <h2 color="dark" style={this.buttonSize("withdrawal")} onClick={() => this.switchToWithdrawal()}>Withdrawals</h2>
+                                <h2 color="dark" style={this.buttonSize("transfer")} onClick={() => this.switchToTransfer()}>Transfers</h2>
                             </MDBCardHeader>
                             <MDBCardBody>
                                 <MDBListGroup>

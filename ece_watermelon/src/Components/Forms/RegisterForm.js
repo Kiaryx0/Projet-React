@@ -116,7 +116,7 @@ class RegisterForm extends React.Component {
   render() {
     return (
       <MDBView>
-        <img src={background} alt="" style={{ backgroundRepeat: "cover" }} />
+        <img src={background} alt="" style={{ backgroundRepeat: "cover", width:"100vw" }} />
         <MDBMask overlay="black-light">
           <MDBContainer className="d-flex flex-column align-items-center">
                 {this.state.alert_invisible ? <div className="invisible"></div> : <div className="visible mt-3">

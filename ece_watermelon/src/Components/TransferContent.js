@@ -90,6 +90,8 @@ class TransferContent extends React.Component {
             const lowerCasedLN = user.last_name.toLowerCase();
             if(lowerCasedFN.includes(lowerCasedInput) || lowerCasedLN.includes(lowerCasedInput)){
                 return user;
+            }else{
+                return null;
             }
         });
         this.setState({
@@ -138,7 +140,7 @@ class TransferContent extends React.Component {
     render() {
         return (
             <MDBView>
-                <img src={background} alt="" style={{ backgroundRepeat: "cover" }} />
+                <img src={background} alt="" style={{ backgroundRepeat: "cover", width:"100vw" }} />
                 <MDBMask overlay="black-light">
                     <MDBContainer style={{ marginBottom: '50px', marginTop: '50px' }}>
                         <h1 className="text-center white-text" style={{ fontSize: '40px', fontWeight: 'bold' }}>Transfer Manager</h1>
