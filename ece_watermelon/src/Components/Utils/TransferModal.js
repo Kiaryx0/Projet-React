@@ -12,6 +12,9 @@ class TransferModal extends React.Component{
         this.showInfos = this.showInfos.bind(this);
     }
 
+    /**
+     * Validate and update current user wallet and selected user wallet
+     */
     proceed() {
         let money = this.props.transfer*100;
         let myID = getSessionUser().id;
@@ -19,6 +22,9 @@ class TransferModal extends React.Component{
         this.props.close();
     }
 
+    /**
+     * Confirmation for user to transfer amount to another wallet
+     */
     showInfos() {
         if(this.props.selectedUser !== null) {
             let users = JSON.parse(localStorage.getItem("users"));

@@ -24,7 +24,9 @@ export default class CardAdder extends Component {
 
     }
 
-    // Validate form and update the card
+    /**
+     * Validate form and update the card
+     * */
     submit(event) {
         event.preventDefault();
         if (this.state.last_4.length === 4) {
@@ -45,6 +47,9 @@ export default class CardAdder extends Component {
 
     };
 
+    /**
+     * reset state for next use
+     */
     close() {
         this.setState({
             last_4: "0000",
@@ -55,22 +60,41 @@ export default class CardAdder extends Component {
         this.props.closeAddingCard();
     }
 
+    /**
+     * Updating this.state.last_4 with user input
+     * @param {retrieve user input} event 
+     */
     updateLast4(event) {
         this.setState({ last_4: event.target.value });
     };
 
+    /**
+     * Updating this.state.brand with user choice
+     * @param {retrieve user input} event 
+     */
     updateBrand(event) {
         this.setState({ brand: event.target.value });
     };
 
+    /**
+     * Updating this.state.month with user input
+     * @param {retrieve user input} event 
+     */
     updateMonth(event) {
         this.setState({ month: event.target.value });
     }
 
+    /**
+     * Updating this.state.year with user input
+     * @param {retrieve user input} event 
+     */
     updateYear(event) {
         this.setState({ year: event.target.value });
     }
 
+    /**
+     * Generator for the form (month)
+     */
     generateMonthOption() {
         var lis = [];
         for (var i = 1; i < 13; i++) {
@@ -84,6 +108,9 @@ export default class CardAdder extends Component {
         return lis;
     }
 
+    /**
+     * Generator for the form (year)
+     */
     generateYearOption() {
         var lis = [];
         for (var i = 2018; i < 2040; i++) {

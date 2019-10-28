@@ -22,18 +22,30 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /**
+   * Updating this.state.s_email with user input
+   * @param {retrieve user input} event 
+   */
   handleEmail(event) {
     this.setState({
       s_email: event.target.value
     });
   }
 
+  /**
+   * Updating this.state.s_password with user input
+   * @param {retrieve user input} event 
+   */
   handlePassword(event) {
     this.setState({
       s_password: event.target.value
     })
   }
 
+  /**
+   * Validate and login current user
+   * @param {retrieve forms from all user inputs} event 
+   */
   handleSubmit(event) {
     this.setState({
       alert_invisible: false,

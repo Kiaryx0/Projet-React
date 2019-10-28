@@ -13,9 +13,10 @@ export default class CardDeleter extends Component {
         this.showDeletedCard = this.showDeletedCard.bind(this);
     }
 
-    // Validate form and update the card
+    /** 
+    * Validate form and update the card
+    * */
     delete() {
-
         var cards = JSON.parse(localStorage.getItem("cards"));
         var array = cards.filter(card => {
             return card.id !== this.props.selectedID
@@ -24,6 +25,9 @@ export default class CardDeleter extends Component {
         this.props.closeDeletingCard();
     };
 
+    /**
+     * Confirmation for card selected to delete
+     */
     showDeletedCard() {
         if (this.props.selectedID !== 0) {
 

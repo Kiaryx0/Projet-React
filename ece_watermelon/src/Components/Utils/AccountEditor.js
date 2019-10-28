@@ -9,7 +9,6 @@ export default class AccountEditor extends Component {
 
     constructor(props) {
         super(props);
-
         let user = getSessionUser();
         this.state = {
             first_name: user.first_name,
@@ -19,7 +18,6 @@ export default class AccountEditor extends Component {
             show_password: false,
             profileUpdated: false
         }
-
         this.onFirstNameUpdate = this.onFirstNameUpdate.bind(this);
         this.onLastNameUpdate = this.onLastNameUpdate.bind(this);
         this.onEmailUpdate = this.onEmailUpdate.bind(this);
@@ -29,6 +27,10 @@ export default class AccountEditor extends Component {
         this.submit = this.submit.bind(this);
     }
 
+    /**
+     * Update current user informations according to his inputs
+     * @param {retrieve all inputs in form} event 
+     */
     submit(event){
         event.preventDefault();
         // Modify user in users table
@@ -47,7 +49,6 @@ export default class AccountEditor extends Component {
         loginUser(this.state.email, this.state.password);
         // Refresh navbar
         this.props.refresh();
-
         // Updated to be sure
         let user = getSessionUser();
         this.setState ({
@@ -60,26 +61,49 @@ export default class AccountEditor extends Component {
 
     }
 
+    /**
+     * Updating this.state.first_name with user input
+     * @param {retrieve user input} event 
+     */
     onFirstNameUpdate(event) {
         this.setState({ first_name: event.target.value });
     }
 
+    /**
+     * Updating this.state.last_name with user input
+     * @param {retrieve user input} event 
+     */
     onLastNameUpdate(event) {
         this.setState({ last_name: event.target.value });
     }
 
+    /**
+     * Updating this.state.email with user input
+     * @param {retrieve user input} event 
+     */
     onEmailUpdate(event) {
         this.setState({ email: event.target.value });
     }
 
+    /**
+     * Updating this.state.password with user input
+     * @param {retrieve user input} event 
+     */
     onPasswordUpdate(event) {
         this.setState({ password: event.target.value });
     }
 
+    /**
+     * Check if user ticks checkbox
+     * @param {retrieve user input} event 
+     */
     onCheck(event) {
         this.setState({ show_password: !this.state.show_password });
     }
 
+    /**
+     * Show password to user
+     */
     showPassword() {
         if (this.state.show_password) {
             return "text";

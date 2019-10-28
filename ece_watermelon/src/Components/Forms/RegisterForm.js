@@ -43,12 +43,18 @@ class RegisterForm extends React.Component {
     this.handleRadioBtn = this.handleRadioBtn.bind(this);
   }
 
+  /**
+   * Change current form to next form
+   */
   handleNextBtn() {
     this.setState({
       currentStep: this.state.currentStep + 1,
     });
   }
 
+  /**
+   * Change current form to previous form
+   */
   handlePrvsBtn() {
     this.setState({
       currentStep: this.state.currentStep - 1,
@@ -68,18 +74,30 @@ class RegisterForm extends React.Component {
     });
   }
 
+  /**
+   * retrieve users choice from radio buttons
+   */
   handleRadioBtn = (argCard) => () => {
     this.setState({
       inputCardType: argCard
     });
   }
 
+  /**
+   * retrieve user click from stepper
+   * @param {retrieve user click} stepClick 
+   */
   handleStepperClick(stepClick) {
     this.setState({
       currentStep: stepClick
     });
   }
 
+  /**
+   * Check that email address doesn't already exist, address mail is in correct format and last 4 is in correct format
+   * Save users informations in local storage after validation and log in
+   * @param {retrieve form with all user inputs} event 
+   */
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.inputCVC.length === 4 &&

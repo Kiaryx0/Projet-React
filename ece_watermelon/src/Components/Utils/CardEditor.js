@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { MDBModal, MDBInput, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn } from "mdbreact"
-import { getCardPictureSrc, getCard} from "../../Database/DatabaseCard";
+import { getCardPictureSrc, getCard } from "../../Database/DatabaseCard";
 
 export default class CardEditor extends Component {
 
@@ -8,7 +8,7 @@ export default class CardEditor extends Component {
         super(props);
         this.toggled = true;
         this.closeEditingCard = null;
-        this.state ={
+        this.state = {
             last_4: "0000",
             brand: "jcb",
             month: "01",
@@ -24,15 +24,17 @@ export default class CardEditor extends Component {
         this.submit = this.submit.bind(this);
         this.close = this.close.bind(this);
 
-        
+
     }
 
-     // Validate form and update the card
-     submit(event){
+    /** 
+    * Validate form and update the card
+    */
+    submit(event) {
         event.preventDefault();
         let cards = JSON.parse(localStorage.getItem("cards"));
-        for(var i= 0; i<cards.length; i++){
-            if(cards[i].id === this.props.selectedID){
+        for (var i = 0; i < cards.length; i++) {
+            if (cards[i].id === this.props.selectedID) {
                 cards[i].last_4 = this.state.last_4;
                 cards[i].brand = this.state.brand;
                 cards[i].expired_at = this.state.year + "-" + this.state.month + "-01";
@@ -42,7 +44,10 @@ export default class CardEditor extends Component {
         this.close();
     };
 
-    close(){
+    /**
+     * reset state for next use
+     */
+    close() {
         this.setState({
             last_4: "0000",
             brand: "jcb",
@@ -52,6 +57,9 @@ export default class CardEditor extends Component {
         this.props.closeEditingCard();
     }
 
+    /**
+     * Confirmation for selected card to edit
+     */
     showEditedCard() {
         if (this.props.selectedID !== 0) {
 
@@ -61,9 +69,9 @@ export default class CardEditor extends Component {
                     <div>
                         <p>Are you sure you want to edit the following card ?</p>
                         <img src={getCardPictureSrc(card)} alt="" style={{ width: '50%', maxWidth: '80px', display: 'inline-block' }}></img>
-                        <div style={{ display: 'inline-block', marginLeft: '20px', verticalAlign:'bottom' }}>
-                            <h5 style={{textAlign:"left"}}>Card : ****-****-****-{card.last_4}</h5>
-                            <p style={{textAlign:"left"}}>Expired at : {card.expired_at}</p>
+                        <div style={{ display: 'inline-block', marginLeft: '20px', verticalAlign: 'bottom' }}>
+                            <h5 style={{ textAlign: "left" }}>Card : ****-****-****-{card.last_4}</h5>
+                            <p style={{ textAlign: "left" }}>Expired at : {card.expired_at}</p>
                         </div>
                     </div>
                 )
@@ -71,35 +79,57 @@ export default class CardEditor extends Component {
         }
     }
 
+    /**
+     * Updating this.state.last_4 with user input
+     * @param {retrieve user input} event 
+     */
     updateLast4(event) {
-        this.setState({ last_4:  event.target.value});
+        this.setState({ last_4: event.target.value });
     };
 
-    updateBrand(event){
-        this.setState({ brand:  event.target.value});
+    /**
+     * Updating this.state.brand with user input
+     * @param {retrieve user input} event
+     */
+    updateBrand(event) {
+        this.setState({ brand: event.target.value });
     };
 
-    updateMonth(event){
-        this.setState({ month:  event.target.value});
+    /**
+     * Updating this.state.month with user input
+     * @param {retrieve user input} event
+     */
+    updateMonth(event) {
+        this.setState({ month: event.target.value });
     }
 
-    updateYear(event){
-        this.setState({ year:  event.target.value});
+    /**
+     * Updating this.state.year with user input
+     * @param {retrieve user input} event 
+     */
+    updateYear(event) {
+        this.setState({ year: event.target.value });
     }
 
+    /**
+     * Generator for form (month)
+     */
     generateMonthOption() {
         var lis = [];
         for (var i = 1; i < 13; i++) {
-            if(i<10){
-                lis.push(<option value={"0"+i} key={i}>{i}</option>);
+            if (i < 10) {
+                lis.push(<option value={"0" + i} key={i}>{i}</option>);
             }
-            else{
+            else {
                 lis.push(<option value={i} key={i}>{i}</option>);
             }
         }
         return lis;
     }
 
+    /**
+     * Generator for form (year)
+     */
     generateYearOption() {
         var lis = [];
         for (var i = 2018; i < 2040; i++) {
@@ -111,12 +141,12 @@ export default class CardEditor extends Component {
     render() {
         return (
             <form onSubmit={this.submit}>
-            <MDBModal centered isOpen={this.props.toggled} toggle={() => this.close()}>
-                <MDBModalHeader toggle={() => this.close()}>Edit this Card</MDBModalHeader>
-                <MDBModalBody>
+                <MDBModal centered isOpen={this.props.toggled} toggle={() => this.close()}>
+                    <MDBModalHeader toggle={() => this.close()}>Edit this Card</MDBModalHeader>
+                    <MDBModalBody>
 
-                    {this.showEditedCard()}
-                    <MDBInput value={this.state.last_4} onChange={this.updateLast4} type="number" className="form-control" label="Last Four numbers of your card" required/>
+                        {this.showEditedCard()}
+                        <MDBInput value={this.state.last_4} onChange={this.updateLast4} type="number" className="form-control" label="Last Four numbers of your card" required />
                         <div style={{ marginBottom: '15px' }}>
                             <p className="dark-grey-text" style={{ fontSize: '14px' }}>Card Brand</p>
                             <select className="browser-default custom-select" label="Card Brand" onChange={this.updateBrand}>
@@ -127,7 +157,7 @@ export default class CardEditor extends Component {
                                 <option value='union_pay'>Union Pay</option>
                             </select>
                         </div>
-                        
+
                         <p className="dark-grey-text" style={{ fontSize: '14px' }}>Expiration Date</p>
 
                         <div style={{ width: '45%', display: 'inline-block' }}>
@@ -142,12 +172,12 @@ export default class CardEditor extends Component {
                             </select>
                         </div>
 
-                </MDBModalBody>
-                <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={() => this.close()}>Close</MDBBtn>
-                    <MDBBtn color="primary" type="submit">Proceed</MDBBtn>
-                </MDBModalFooter>
-            </MDBModal>
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                        <MDBBtn color="secondary" onClick={() => this.close()}>Close</MDBBtn>
+                        <MDBBtn color="primary" type="submit">Proceed</MDBBtn>
+                    </MDBModalFooter>
+                </MDBModal>
             </form>
         );
     }
